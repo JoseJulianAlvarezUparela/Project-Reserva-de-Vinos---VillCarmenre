@@ -10,6 +10,7 @@
 // Importación de módulos especializados
 import { initHeaderAnimations } from "./modules/headerAnimations.js";
 import { initHeroAnimations } from "./modules/heroAnimations.js";
+import { initHistoryAnimations } from "./modules/historyAnimations.js";
 
 /**
  * Función que arranca la lógica interactiva del sitio.
@@ -17,6 +18,7 @@ import { initHeroAnimations } from "./modules/heroAnimations.js";
 const initSite = () => {
   initHeaderAnimations();
   initHeroAnimations();
+  initHistoryAnimations();
 };
 
 /**

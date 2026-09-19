@@ -1,0 +1,173 @@
+/* ==========================================================================
+   NUESTRA HISTORIA EDITORIAL - ESTILOS MODULARES
+   Este archivo contiene únicamente los estilos de la sección #historia.
+   ========================================================================== */
+
+/* Contenedor general de la historia editorial; agrupa los 5 pósters verticales. */
+.history-editorial {
+  background: var(--color-ivory); /* Base clara para evitar flashes entre pósters. */
+  isolation: isolate; /* Crea un contexto propio para que z-index y pinning no contaminen otras secciones. */
+  position: relative; /* Permite que los bloques internos posicionen elementos con referencia local. */
+}
+
+/* Cada bloque funciona como un póster de pantalla completa. */
+.poster-block {
+  align-items: center; /* Centra verticalmente texto e imagen dentro del viewport. */
+  background: var(--color-ivory); /* Fondo predeterminado marfil para bloques impares. */
+  display: flex; /* Habilita el zig-zag horizontal solicitado. */
+  gap: clamp(28px, 5vw, 86px); /* Espacio editorial fluido entre texto y póster. */
+  height: 100vh; /* Cada póster ocupa exactamente una pantalla. */
+  justify-content: center; /* Mantiene la composición centrada en pantallas amplias. */
+  overflow: hidden; /* Oculta máscaras, escalados y parallax fuera del marco. */
+  padding: clamp(92px, 10vh, 132px) clamp(22px, 6vw, 86px) clamp(34px, 7vh, 72px); /* Respira bajo el header fijo. */
+  position: relative; /* Necesario para el marco absoluto decorativo. */
+  width: 100vw; /* Cada póster ocupa todo el ancho del viewport. */
+}
+
+/* Marco fino dorado que convierte cada bloque en una pieza editorial tipo afiche. */
+.poster-block::before {
+  border: 1px solid rgba(200, 169, 106, 0.72); /* Borde en Dorado Envejecido con transparencia elegante. */
+  content: ""; /* Activa el pseudo-elemento decorativo. */
+  inset: clamp(18px, 3vw, 38px); /* Retira el marco de los bordes para dar margen de galería. */
+  pointer-events: none; /* Evita que el marco capture interacciones. */
+  position: absolute; /* Lo superpone al póster completo. */
+  z-index: 2; /* Queda por encima del fondo, sin tapar la lectura. */
+}
+
+/* Bloques pares: invierten el orden para lograr el patrón zig-zag. */
+.poster-block--reverse {
+  flex-direction: row-reverse; /* Imagen a la izquierda y texto a la derecha. */
+}
+
+/* Variante oscura: fondo Burdeos para alternar ritmo visual. */
+.poster-block--bordeaux {
+  background:
+    radial-gradient(circle at 78% 20%, rgba(200, 169, 106, 0.16), transparent 30%), /* Brillo sutil dorado. */
+    var(--color-bordeaux); /* Fondo principal burdeos. */
+  color: var(--color-hero-text); /* Texto claro sobre fondo oscuro. */
+}
+
+/* Columna textual del póster. */
+.poster-block__text {
+  flex: 0 1 520px; /* Ancho editorial controlado para lectura cómoda. */
+  max-width: 560px; /* Evita líneas demasiado largas. */
+  position: relative; /* Mantiene su capa estable durante animaciones. */
+  z-index: 3; /* Asegura legibilidad sobre decoraciones. */
+}
+
+/* Pequeño rótulo superior con tono de archivo histórico. */
+.poster-block__eyebrow {
+  color: var(--color-olive-green); /* Verde oliva para referencia natural. */
+  display: block; /* Permite margen vertical controlado. */
+  font-family: var(--font-body); /* Lato para datos auxiliares. */
+  font-size: clamp(0.68rem, 1vw, 0.78rem); /* Tamaño discreto y responsive. */
+  font-weight: 700; /* Peso suficiente para funcionar como etiqueta. */
+  letter-spacing: 0.22em; /* Espaciado editorial de etiqueta. */
+  margin-bottom: 18px; /* Separación del año. */
+  text-transform: uppercase; /* Convierte la etiqueta en señal de navegación histórica. */
+}
+
+/* En fondos oscuros, el rótulo usa dorado para mantener contraste y marca. */
+.poster-block--bordeaux .poster-block__eyebrow {
+  color: var(--color-aged-gold); /* Dorado envejecido sobre burdeos. */
+}
+
+/* Año protagónico con Cinzel. */
+.poster-block__year {
+  color: var(--color-aged-gold); /* Año como sello histórico en dorado. */
+  font-family: var(--font-primary); /* Cinzel refuerza el carácter clásico. */
+  font-size: clamp(3.4rem, 8vw, 8.8rem); /* Escala monumental tipo póster. */
+  font-weight: 500; /* Peso elegante, sin excesiva densidad. */
+  line-height: 0.86; /* Compacta el bloque para una composición editorial. */
+  margin: 0 0 24px; /* Separa año y titular. */
+}
+
+/* Titular editorial con Playfair Display. */
+.poster-block__title {
+  color: var(--color-primary); /* Burdeos en fondos claros. */
+  font-family: var(--font-secondary); /* Playfair para tono editorial de alto contraste. */
+  font-size: clamp(2.2rem, 5.2vw, 5.8rem); /* Titular grande sin romper móviles. */
+  font-weight: 500; /* Elegante y legible. */
+  line-height: 0.98; /* Compactación tipo revista. */
+  margin: 0; /* Elimina margen predeterminado del h2. */
+}
+
+/* En fondos burdeos, el titular se vuelve marfil. */
+.poster-block--bordeaux .poster-block__title {
+  color: var(--color-hero-text); /* Contraste cálido sobre oscuro. */
+}
+
+/* Párrafo descriptivo con Lato. */
+.poster-block__copy {
+  color: var(--color-text-muted); /* Lectura suave en fondo claro. */
+  font-family: var(--font-body); /* Lato para cuerpo de texto. */
+  font-size: clamp(1rem, 1.25vw, 1.18rem); /* Tamaño cómodo y fluido. */
+  line-height: 1.75; /* Aire editorial para lectura pausada. */
+  margin: 28px 0 0; /* Separación respecto al titular. */
+  max-width: 480px; /* Medida de línea agradable. */
+}
+
+/* Párrafo claro sobre bloques burdeos. */
+.poster-block--bordeaux .poster-block__copy {
+  color: rgba(255, 249, 239, 0.76); /* Marfil tenue para jerarquía secundaria. */
+}
+
+/* Columna visual del póster. */
+.poster-block__visual {
+  flex: 0 1 min(44vw, 560px); /* La imagen gana presencia sin dominar el texto. */
+  position: relative; /* Soporta el marco y el parallax del interior. */
+  z-index: 3; /* Se mantiene por encima del borde general. */
+}
+
+/* Marco/caja de la imagen temporal. */
+.poster-block__frame {
+  aspect-ratio: 4 / 5; /* Proporción vertical tipo póster. */
+  border: 1px solid rgba(200, 169, 106, 0.82); /* Borde dorado del marco de imagen. */
+  box-shadow: 0 28px 90px rgba(43, 26, 29, 0.22); /* Sombra premium para separar del fondo. */
+  overflow: hidden; /* Oculta el escalado de la imagen durante el reveal. */
+  position: relative; /* Necesario para pseudo-elementos decorativos futuros. */
+}
+
+/* Imagen temporal usada en cada póster. */
+.poster-block__frame img {
+  display: block; /* Elimina espacio inline debajo de imágenes. */
+  height: 112%; /* Da margen extra para el parallax vertical. */
+  object-fit: cover; /* Cubre el marco sin deformar la imagen. */
+  width: 100%; /* Llena el marco horizontalmente. */
+  will-change: transform, opacity; /* Optimiza las animaciones GSAP. */
+}
+
+/* Sello de línea interior para reforzar la sensación de póster impreso. */
+.poster-block__frame::after {
+  border: 1px solid rgba(247, 242, 233, 0.38); /* Borde interior claro y delicado. */
+  content: ""; /* Activa la capa decorativa. */
+  inset: 14px; /* Desplaza el borde hacia el interior de la imagen. */
+  pointer-events: none; /* No interfiere con interacciones. */
+  position: absolute; /* Se superpone a la imagen. */
+}
+
+/* Adaptación para tablets y móviles. */
+@media (max-width: 900px) {
+  .poster-block,
+  .poster-block--reverse {
+    flex-direction: column; /* El zig-zag se simplifica verticalmente para lectura móvil. */
+    gap: 28px; /* Reduce distancia entre texto e imagen. */
+    height: 100vh; /* Conserva el requerimiento de pantalla completa. */
+    padding: 96px 22px 32px; /* Respeta header y bordes pequeños. */
+  }
+
+  .poster-block__text {
+    flex: 0 0 auto; /* Permite que el texto tome solo su altura natural. */
+    max-width: 100%; /* Aprovecha el ancho móvil. */
+  }
+
+  .poster-block__visual {
+    flex: 1 1 auto; /* La imagen ocupa el espacio vertical disponible. */
+    max-width: min(76vw, 360px); /* Evita marcos demasiado grandes en móvil. */
+    width: 100%; /* Mantiene proporción dentro del contenedor. */
+  }
+
+  .poster-block__frame {
+    max-height: 42vh; /* Evita que la imagen empuje el texto fuera del viewport. */
+  }
+}

@@ -8,6 +8,8 @@
 
     <!-- Enlace a la hoja de estilos principal -->
     <link rel="stylesheet" href="css/main.css" />
+    <!-- Hoja exclusiva de la sección editorial Nuestra Historia -->
+    <link rel="stylesheet" href="css/history.css" />
   </head>
   <body>
     <!-- ==========================================================================
@@ -80,22 +82,97 @@
             </h2>
           </div>
 
-          <!-- Indicador visual de scroll para invitar a seguir bajando -->
-          <a class="scroll-indicator" href="#historia" data-hero-item>
-            <span>Desliza para explorar el Terroir</span>
-            <span class="scroll-line" aria-hidden="true"></span>
-          </a>
-        </div>
       </section>
 
-      <!-- SECCIONES DE CONTENIDO NARRATIVO -->
-      <!-- Sección 1: Nuestra Historia -->
-      <section class="content-section" id="historia">
-        <div class="section-inner">
-          <span class="section-eyebrow">Legado desde 1892</span>
-          <h2>Nuestra Historia</h2>
-          <p>Un linaje de vendimias, paciencia y oficio que honra la memoria familiar en cada guarda.</p>
-        </div>
+      <!-- ======================================================================
+           NUESTRA HISTORIA EDITORIAL:
+           Cinco bloques tipo póster, cada uno con 100vh y animación propia.
+           ====================================================================== -->
+      <section class="history-editorial" id="historia" aria-labelledby="historia-title">
+        <article class="poster-block poster-block--ivory" data-poster-block>
+          <div class="poster-block__text" data-poster-text>
+            <span class="poster-block__eyebrow" data-poster-text-item>Legado desde 1892</span>
+            <p class="poster-block__year" data-poster-text-item>1892</p>
+            <h2 class="poster-block__title" id="historia-title" data-poster-text-item>La primera vendimia</h2>
+            <p class="poster-block__copy" data-poster-text-item>
+              Entre suelos minerales y paciencia familiar, nace una tradición que entiende el vino como memoria viva.
+            </p>
+          </div>
+
+          <div class="poster-block__visual" data-poster-visual>
+            <div class="poster-block__frame">
+              <img src="assets/03 - Vinos.jpg" alt="Viña Carmenère, memoria visual del origen" data-poster-image />
+            </div>
+          </div>
+        </article>
+
+        <article class="poster-block poster-block--bordeaux poster-block--reverse" data-poster-block>
+          <div class="poster-block__text" data-poster-text>
+            <span class="poster-block__eyebrow" data-poster-text-item>Oficio y barrica</span>
+            <p class="poster-block__year" data-poster-text-item>1927</p>
+            <h2 class="poster-block__title" data-poster-text-item>El tiempo aprende a respirar</h2>
+            <p class="poster-block__copy" data-poster-text-item>
+              La casa perfecciona sus crianzas, dejando que la madera y el silencio dibujen profundidad en cada reserva.
+            </p>
+          </div>
+
+          <div class="poster-block__visual" data-poster-visual>
+            <div class="poster-block__frame">
+              <img src="assets/04 - Barricada.jpg" alt="Detalle editorial de barricas y tradición" data-poster-image />
+            </div>
+          </div>
+        </article>
+
+        <article class="poster-block poster-block--ivory" data-poster-block>
+          <div class="poster-block__text" data-poster-text>
+            <span class="poster-block__eyebrow" data-poster-text-item>Raíz familiar</span>
+            <p class="poster-block__year" data-poster-text-item>1958</p>
+            <h2 class="poster-block__title" data-poster-text-item>Cuatro generaciones, una mesa</h2>
+            <p class="poster-block__copy" data-poster-text-item>
+              La finca se convierte en punto de encuentro: cosechas, relatos y decisiones compartidas bajo la misma luz.
+            </p>
+          </div>
+
+          <div class="poster-block__visual" data-poster-visual>
+            <div class="poster-block__frame">
+              <img src="assets/05 - elegant family table.jpg" alt="Paisaje de viñedo como símbolo de continuidad familiar" data-poster-image />
+            </div>
+          </div>
+        </article>
+
+        <article class="poster-block poster-block--bordeaux poster-block--reverse" data-poster-block>
+          <div class="poster-block__text" data-poster-text>
+            <span class="poster-block__eyebrow" data-poster-text-item>Terroir chileno</span>
+            <p class="poster-block__year" data-poster-text-item>1989</p>
+            <h2 class="poster-block__title" data-poster-text-item>El valle revela su carácter</h2>
+            <p class="poster-block__copy" data-poster-text-item>
+              El Carmenère encuentra una voz propia entre brisas templadas, días luminosos y noches de maduración lenta.
+            </p>
+          </div>
+
+          <div class="poster-block__visual" data-poster-visual>
+            <div class="poster-block__frame">
+              <img src="assets/06 - Viñedo.jpg" alt="Surcos y paisaje de terroir chileno" data-poster-image />
+            </div>
+          </div>
+        </article>
+
+        <article class="poster-block poster-block--ivory" data-poster-block>
+          <div class="poster-block__text" data-poster-text>
+            <span class="poster-block__eyebrow" data-poster-text-item>Presente vivo</span>
+            <p class="poster-block__year" data-poster-text-item>Hoy</p>
+            <h2 class="poster-block__title" data-poster-text-item>Una reserva para contemplar</h2>
+            <p class="poster-block__copy" data-poster-text-item>
+              La historia continúa en experiencias íntimas, catas cuidadas y botellas que conservan el pulso de la tierra.
+            </p>
+          </div>
+
+          <div class="poster-block__visual" data-poster-visual>
+            <div class="poster-block__frame">
+              <img src="assets/07 - Presente.jpg" alt="Experiencia de cata y reserva contemporánea" data-poster-image />
+            </div>
+          </div>
+        </article>
       </section>
 
       <!-- Sección 2: Colección & Catas -->
