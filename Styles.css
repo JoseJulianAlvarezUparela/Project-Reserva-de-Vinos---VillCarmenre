@@ -1,0 +1,5 @@
+/* ==========================================================================
+   ENLACE ALTERNATIVO DE ESTILOS
+   Importa la hoja de estilos principal modularizada desde css/main.css
+   ========================================================================== */
+@import url("./css/main.css");

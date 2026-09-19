@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <!-- Configuración básica de metadatos del documento -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>VIÑA CARMENÈRE | Desde 1892</title>
+
+    <!-- Enlace a la hoja de estilos principal -->
+    <link rel="stylesheet" href="css/main.css" />
+  </head>
+  <body>
+    <!-- ==========================================================================
+         CAPA DE INTRODUCCIÓN / LOGO INICIAL
+         Esta capa muestra el logo en tamaño grande en el centro de la pantalla
+         al cargar el sitio. Mediante GSAP se animará hacia la esquina del header.
+         ========================================================================== -->
+    <div class="intro-logo-layer" aria-hidden="true" data-intro-logo-layer>
+      <img class="intro-logo" src="assets/01 - Logo.png" alt="" data-intro-logo />
+    </div>
+
+    <!-- ==========================================================================
+         ENCABEZADO PRINCIPAL (HEADER)
+         Fijo en la parte superior. Cambia su estado según el scroll (.is-scrolled)
+         y el estado de la animación de bienvenida (.is-intro).
+         ========================================================================== -->
+    <header class="site-header is-intro" data-header>
+      <div class="header-inner">
+        <!-- Enlace del logotipo de la marca -->
+        <a class="brand-link" href="#origen" aria-label="Ir a Origen y Herencia">
+          <!-- Logo final en el header (recibirá la animación del logo inicial) -->
+          <img class="brand-mark" src="assets/01 - Logo.png" alt="VIÑA CARMENÈRE" data-logo />
+          <span class="brand-copy">
+            <span class="brand-name">VIÑA CARMENÈRE</span>
+            <span class="brand-subtitle">DESDE 1892 • CHILE</span>
+          </span>
+        </a>
+
+        <!-- Botón hamburguesa para dispositivos móviles -->
+        <button class="nav-toggle" type="button" aria-label="Abrir menu" aria-expanded="false" data-nav-toggle>
+          <span></span>
+        </button>
+
+        <!-- Navegación principal del sitio -->
+        <nav class="main-nav" aria-label="Navegacion principal" data-nav>
+          <a href="#origen">Origen</a>
+          <a href="#historia">Nuestra Historia</a>
+          <a href="#coleccion">Colección</a>
+          <a href="#terroir">El Terroir</a>
+          <a href="#reservas">Reservas</a>
+        </nav>
+      </div>
+    </header>
+
+    <!-- ==========================================================================
+         CONTENIDO PRINCIPAL (MAIN)
+         ========================================================================== -->
+    <main>
+      <!-- Espacio reservado para activar el ScrollTrigger de la introducción del logo -->
+      <section class="intro-screen" aria-label="Bienvenida VIÑA CARMENÈRE" data-intro-screen></section>
+
+      <!-- SECCIÓN HERO / ORIGEN:
+           Contiene el fondo fotográfico con parallax y la presentación tipográfica
+           con efecto de revelado por líneas (masking). -->
+      <section class="hero" id="origen" aria-labelledby="hero-title">
+        <div class="hero-stage">
+          <!-- Capa de fondo fotográfico con superposiciones de color y viñetas -->
+          <div class="hero-background" data-hero-bg></div>
+
+          <!-- Contenido textual del Hero -->
+          <div class="hero-content" data-hero-content>
+            <span class="hero-kicker" data-hero-item>Origen & Herencia</span>
+            <h1 class="hero-title" id="hero-title">
+              <!-- Envoltorios de máscara (.mask-line) para animar el texto deslizándose hacia arriba -->
+              <span class="mask-line"><span class="line-inner">Donde la tierra susurra historia</span></span>
+              <span class="mask-line"><span class="line-inner">y el tiempo perfecciona el alma del vino.</span></span>
+            </h1>
+            <h2 class="hero-subtitle">
+              <span class="mask-line"><span class="line-inner">Cuatro generaciones, una misma pasión desde 1892.</span></span>
+            </h2>
+          </div>
+
+          <!-- Indicador visual de scroll para invitar a seguir bajando -->
+          <a class="scroll-indicator" href="#historia" data-hero-item>
+            <span>Desliza para explorar el Terroir</span>
+            <span class="scroll-line" aria-hidden="true"></span>
+          </a>
+        </div>
+      </section>
+
+      <!-- SECCIONES DE CONTENIDO NARRATIVO -->
+      <!-- Sección 1: Nuestra Historia -->
+      <section class="content-section" id="historia">
+        <div class="section-inner">
+          <span class="section-eyebrow">Legado desde 1892</span>
+          <h2>Nuestra Historia</h2>
+          <p>Un linaje de vendimias, paciencia y oficio que honra la memoria familiar en cada guarda.</p>
+        </div>
+      </section>
+
+      <!-- Sección 2: Colección & Catas -->
+      <section class="content-section" id="coleccion">
+        <div class="section-inner">
+          <span class="section-eyebrow">Vinos, maridaje y experiencia gastronomica</span>
+          <h2>Colección & Catas</h2>
+          <p>Reservas seleccionadas, catas guiadas y maridajes pensados para revelar el caracter de cada cepa.</p>
+        </div>
+      </section>
+
+      <!-- Sección 3: Terroir & Finca -->
+      <section class="content-section" id="terroir">
+        <div class="section-inner">
+          <span class="section-eyebrow">Paisaje, surcos e instalaciones</span>
+          <h2>El Terroir & Finca</h2>
+          <p>La finca respira entre suelos minerales, brisas templadas y espacios diseñados para contemplar el origen.</p>
+        </div>
+      </section>
+
+      <!-- Sección 4: Reservas -->
+      <section class="content-section" id="reservas">
+        <div class="section-inner">
+          <span class="section-eyebrow">Atencion personalizada y reservas</span>
+          <h2>Sanctuarium & Reservas</h2>
+          <p>Un encuentro íntimo con la viña, preparado con cuidado para visitantes que buscan una experiencia memorable.</p>
+        </div>
+      </section>
+    </main>
+
+    <!-- ==========================================================================
+         SCRIPTS:
+         - GSAP: Librería central de animación
+         - ScrollTrigger: Plugin de GSAP para sincronizar animaciones con el desplazamiento
+         - main.js: Módulo JavaScript principal de la aplicación
+         ========================================================================== -->
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+    <script type="module" src="js/main.js"></script>
+  </body>
+</html>

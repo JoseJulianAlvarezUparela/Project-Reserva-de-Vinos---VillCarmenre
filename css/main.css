@@ -1,0 +1,625 @@
+/* ==========================================================================
+   TIPOGRAFÍAS WEB (Google Fonts)
+   - Cinzel: Tipografía serif clásica de inspiración romana, ideal para logos y títulos de prestigio.
+   - Playfair Display: Serif con alto contraste, aporta elegancia editorial para subtítulos.
+   - Lato: Tipografía sans-serif legible y equilibrada para lectura en párrafos y textos secundarios.
+   ========================================================================== */
+@import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Lato:wght@300;400;700&family=Playfair+Display:wght@400;500;600;700&display=swap");
+
+/* ==========================================================================
+   VARIABLES GLOBALES / DESIGN TOKENS (:root)
+   Centraliza la identidad visual de la marca para facilitar coherencia y cambios globales.
+   ========================================================================== */
+:root {
+  /* Identidad textual de la marca */
+  --brand-name: "VIÑA CARMENÈRE";
+  --brand-subtitle: "DESDE 1892 • CHILE";
+
+  /* Paleta cromática corporativa */
+  --color-bordeaux: #5B1F2E;       /* Rojo vino / Burdeos profundo: evoca el Carmenère y la barrica */
+  --color-aged-gold: #C8A96A;      /* Oro envejecido: elegancia, tradición y sellos de calidad */
+  --color-light-earth: #DCC7A6;    /* Tierra clara: conexión con el terroir y la arcilla */
+  --color-olive-green: #6B705C;    /* Verde oliva: naturaleza, sarmientos y viñedos */
+  --color-terracotta: #B65A3C;     /* Terracota: calidez del sol y tonalidades otoñales */
+  --color-ivory: #F7F2E9;          /* Marfil cálido: fondo luminoso, suave y prémium */
+
+  /* Roles semánticos de color */
+  --color-primary: var(--color-bordeaux);
+  --color-secondary: var(--color-aged-gold);
+  --color-background: var(--color-ivory);
+  --color-surface-warm: var(--color-light-earth);
+  --color-natural: var(--color-olive-green);
+  --color-accent: var(--color-terracotta);
+  --color-text: #2B1A1D;           /* Tono casi negro con matiz vino para lectura cómoda */
+  --color-text-muted: #6F6257;     /* Texto secundario atenuado */
+  --color-hero-text: #FFF9EF;      /* Blanco roto para alto contraste sobre fondos oscuros */
+
+  /* Definición de fuentes */
+  --font-primary: "Cinzel", Georgia, "Times New Roman", serif;
+  --font-secondary: "Playfair Display", Georgia, "Times New Roman", serif;
+  --font-body: "Lato", Arial, sans-serif;
+
+  /* Asignación funcional de tipografías */
+  --font-logo: var(--font-primary);
+  --font-heading: var(--font-primary);
+  --font-subheading: var(--font-secondary);
+  --font-support: var(--font-body);
+
+  /* Medidas de diseño y transiciones */
+  --header-height: 92px;                                 /* Altura predeterminada del encabezado */
+  --content-width: min(1180px, calc(100% - 40px));      /* Ancho máximo centrado con márgenes */
+  --transition-soft: 240ms ease;                         /* Transición estándar para suavizar hover y cambios */
+}
+
+/* ==========================================================================
+   RESET Y ESTILOS BASE
+   ========================================================================== */
+* {
+  box-sizing: border-box; /* Incluye padding y bordes en el cálculo de tamaños */
+}
+
+html {
+  scroll-behavior: smooth; /* Desplazamiento suave al hacer clic en anclas (#) */
+}
+
+body {
+  margin: 0;
+  background: var(--color-background);
+  color: var(--color-text);
+  font-family: var(--font-body);
+}
+
+/* Bloquea el scroll del body cuando el menú móvil está desplegado */
+body.menu-open {
+  overflow: hidden;
+}
+
+/* Estado activo durante la animación de entrada del logo */
+body.is-entering {
+  background: var(--color-ivory);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* ==========================================================================
+   PANTALLA Y LOGO DE INTRODUCCIÓN (Intro Animation)
+   ========================================================================== */
+/* Pantalla inicial que reserva el espacio vertical para scrollear e iniciar el viaje visual */
+.intro-screen {
+  background:
+    radial-gradient(circle at center, rgba(220, 199, 166, 0.3), transparent 38%),
+    var(--color-ivory);
+  height: 100vh;
+  position: relative;
+  z-index: 4;
+}
+
+/* Capa fija superpuesta que contiene el gran logotipo central */
+.intro-logo-layer {
+  display: grid;
+  inset: 0;
+  place-items: center;
+  pointer-events: none; /* Permite clicks a través de la capa */
+  position: fixed;
+  z-index: 1200;
+}
+
+/* Logotipo central de gran tamaño que se escala y traslada al header */
+.intro-logo {
+  display: block;
+  height: auto;
+  max-height: 82vh;
+  object-fit: contain;
+  width: min(78vw, 720px);
+  will-change: transform, opacity; /* Optimización para renderizado fluido en GPU */
+}
+
+/* ==========================================================================
+   ENCABEZADO (Site Header)
+   ========================================================================== */
+.site-header {
+  align-items: center;
+  display: flex;
+  height: var(--header-height);
+  justify-content: center;
+  left: 0;
+  padding: 0 28px;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+}
+
+/* Pseudo-elemento ::before para manejar el fondo translúcido y desenfoque (glassmorphism) */
+.site-header::before {
+  background: rgba(91, 31, 46, 0);
+  backdrop-filter: blur(0);
+  content: "";
+  inset: 0;
+  position: absolute;
+  transition: background var(--transition-soft), backdrop-filter var(--transition-soft), box-shadow var(--transition-soft);
+  z-index: -1;
+}
+
+/* Estado inicial durante la animación de entrada: completamente transparente */
+.site-header.is-intro::before {
+  background: rgba(91, 31, 46, 0);
+  backdrop-filter: blur(0);
+  box-shadow: none;
+}
+
+/* Estado al hacer scroll: aplica desenfoque y sombra elegante */
+.site-header.is-scrolled::before {
+  /* background: rgba(91, 31, 46, 0.88); */
+  backdrop-filter: blur(10px);
+  box-shadow: 0 14px 40px rgba(43, 26, 29, 0.18);
+}
+
+.site-header.is-intro.is-scrolled::before {
+  background: rgba(91, 31, 46, 0);
+  backdrop-filter: blur(0);
+  box-shadow: none;
+}
+
+/* Contenedor interno centrado del header */
+.header-inner {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  width: var(--content-width);
+}
+
+/* Enlace de la marca (logo + texto) */
+.brand-link {
+  align-items: center;
+  display: inline-flex;
+  gap: 14px;
+  transform-origin: left center;
+}
+
+/* Imagen del isotipo en el header */
+.brand-mark {
+  /* border: 1px solid rgba(200, 169, 106, 0.65); */
+  height: 56px;
+  object-fit: contain;
+  opacity: 1;
+  transition: opacity var(--transition-soft);
+  width: 56px;
+}
+
+/* Contenedor del nombre y subtítulo de la viña */
+.brand-copy {
+  display: grid;
+  gap: 2px;
+  transition: opacity var(--transition-soft), transform var(--transition-soft);
+}
+
+.brand-name {
+  color: var(--color-hero-text);
+  font-family: var(--font-logo);
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0;
+}
+
+.brand-subtitle {
+  color: var(--color-aged-gold);
+  font-family: var(--font-body);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+}
+
+/* Menú de navegación de escritorio */
+.main-nav {
+  align-items: center;
+  display: flex;
+  gap: 30px;
+  transition: opacity var(--transition-soft), transform var(--transition-soft);
+}
+
+/* Oculta elementos del header mientras transcurre la animación de intro */
+.site-header.is-intro .brand-mark {
+  opacity: 0;
+}
+
+.site-header.is-intro .brand-copy {
+  opacity: 0;
+  transform: translateX(-12px);
+}
+
+.site-header.is-intro .main-nav {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(42px);
+}
+
+/* Estilos de los enlaces de navegación */
+.main-nav a {
+  color: var(--color-hero-text);
+  font-family: var(--font-primary);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  padding: 10px 0;
+  position: relative;
+  text-transform: uppercase;
+}
+
+/* Línea animada inferior al hacer hover en enlaces */
+.main-nav a::after {
+  background: var(--color-aged-gold);
+  bottom: 3px;
+  content: "";
+  height: 1px;
+  left: 0;
+  position: absolute;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform var(--transition-soft);
+  width: 100%;
+}
+
+.main-nav a:hover::after,
+.main-nav a:focus-visible::after {
+  transform: scaleX(1);
+}
+
+/* ==========================================================================
+   BOTÓN MENÚ MÓVIL (Hamburguesa)
+   ========================================================================== */
+.nav-toggle {
+  align-items: center;
+  background: transparent;
+  border: 1px solid rgba(200, 169, 106, 0.7);
+  color: var(--color-aged-gold);
+  cursor: pointer;
+  display: none; /* Oculto en pantallas grandes */
+  height: 42px;
+  justify-content: center;
+  padding: 0;
+  width: 42px;
+}
+
+/* Líneas que forman el icono de hamburguesa */
+.nav-toggle span,
+.nav-toggle span::before,
+.nav-toggle span::after {
+  background: currentColor;
+  content: "";
+  display: block;
+  height: 1px;
+  position: absolute;
+  transition: transform var(--transition-soft), opacity var(--transition-soft);
+  width: 18px;
+}
+
+.nav-toggle span {
+  position: relative;
+}
+
+.nav-toggle span::before {
+  transform: translateY(-6px);
+}
+
+.nav-toggle span::after {
+  transform: translateY(6px);
+}
+
+/* Animación a icono de cerrar 'X' cuando está activo */
+.nav-toggle.is-active span {
+  background: transparent;
+}
+
+.nav-toggle.is-active span::before {
+  background: var(--color-aged-gold);
+  transform: rotate(45deg);
+}
+
+.nav-toggle.is-active span::after {
+  background: var(--color-aged-gold);
+  transform: rotate(-45deg);
+}
+
+/* ==========================================================================
+   SECCIÓN HERO (Portada principal)
+   ========================================================================== */
+.hero {
+  color: var(--color-hero-text);
+  min-height: 280vh; /* Altura extendida para dar recorrido a la animación de ScrollTrigger */
+  position: relative;
+}
+
+/* Escenario sticky: se mantiene fijo en pantalla mientras scrolleamos por el contenedor de 280vh */
+.hero-stage {
+  align-items: center;
+  display: flex;
+  height: 100vh;
+  min-height: 720px;
+  overflow: hidden;
+  position: sticky;
+  top: 0;
+}
+
+/* Capa de fondo con imagen y degradados superpuestos */
+.hero-background {
+  background-image:
+    radial-gradient(circle at 24% 46%, rgba(200, 169, 106, 0.18), transparent 32%),
+    linear-gradient(90deg, rgba(91, 31, 46, 0.86), rgba(91, 31, 46, 0.48), rgba(43, 26, 29, 0.38)),
+    url("../assets/02 - Hero Image.jpg");
+  background-position: center;
+  background-size: cover;
+  inset: 0;
+  position: absolute;
+  z-index: -2;
+}
+
+/* Degradado vertical sutil para viñetear la parte superior e inferior */
+.hero-stage::after {
+  background:
+    linear-gradient(0deg, rgba(43, 26, 29, 0.62), rgba(43, 26, 29, 0) 44%),
+    linear-gradient(180deg, rgba(43, 26, 29, 0.2), rgba(43, 26, 29, 0) 28%);
+  content: "";
+  inset: 0;
+  position: absolute;
+  z-index: -1;
+}
+
+/* Contenido de textos en el Hero */
+.hero-content {
+  margin: 0 auto;
+  opacity: 0; /* Controlado inicialmente por GSAP */
+  padding: calc(var(--header-height) + 72px) 0 92px;
+  position: relative;
+  width: var(--content-width);
+  z-index: 1;
+}
+
+/* Antetítulo / Kicker */
+.hero-kicker {
+  color: var(--color-aged-gold);
+  display: block;
+  font-family: var(--font-body);
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.24em;
+  margin-bottom: 22px;
+  text-transform: uppercase;
+}
+
+/* Título principal con tipografía monumental */
+.hero-title {
+  font-family: var(--font-heading);
+  font-size: clamp(2.6rem, 7vw, 6.8rem);
+  font-weight: 500;
+  line-height: 1;
+  margin: 0;
+  max-width: 1080px;
+}
+
+/* Envoltorios para el efecto de reveal de texto por máscara */
+.hero-title .mask-line,
+.hero-subtitle .mask-line {
+  display: block;
+  overflow: hidden; /* Oculta el texto hasta que se desplaza hacia arriba */
+}
+
+.hero-title .line-inner,
+.hero-subtitle .line-inner {
+  display: block;
+}
+
+/* Gradiente dorado aplicado al texto del título */
+.hero-title .line-inner {
+  background: linear-gradient(100deg, #FFF9EF 0%, #F6E2B7 46%, var(--color-aged-gold) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.hero-subtitle .line-inner {
+  color: rgba(255, 249, 239, 0.92);
+}
+
+/* Subtítulo editorial */
+.hero-subtitle {
+  color: rgba(255, 249, 239, 0.9);
+  font-family: var(--font-subheading);
+  font-size: clamp(1.35rem, 2.2vw, 2rem);
+  font-weight: 500;
+  line-height: 1.35;
+  margin: 28px 0 0;
+  max-width: 620px;
+}
+
+/* ==========================================================================
+   INDICADOR DE SCROLL
+   ========================================================================== */
+.scroll-indicator {
+  align-items: center;
+  bottom: 34px;
+  color: var(--color-hero-text);
+  display: inline-flex;
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 700;
+  gap: 14px;
+  left: max(28px, calc((100% - 1180px) / 2));
+  letter-spacing: 0.18em;
+  opacity: 0;
+  position: absolute;
+  text-transform: uppercase;
+  z-index: 2;
+}
+
+.scroll-line {
+  background: rgba(200, 169, 106, 0.32);
+  height: 58px;
+  overflow: hidden;
+  position: relative;
+  width: 1px;
+}
+
+/* Línea animada que recorre la guía vertical simulando un pulso de agua o gota de vino */
+.scroll-line::after {
+  animation: scrollPulse 1.8s ease-in-out infinite;
+  background: var(--color-aged-gold);
+  content: "";
+  height: 22px;
+  left: 0;
+  position: absolute;
+  top: -22px;
+  width: 1px;
+}
+
+@keyframes scrollPulse {
+  0% {
+    transform: translateY(0);
+  }
+
+  100% {
+    transform: translateY(82px);
+  }
+}
+
+/* ==========================================================================
+   SECCIONES GENERALES DE CONTENIDO (Historia, Catas, Terroir, Reservas)
+   ========================================================================== */
+.content-section {
+  align-items: center;
+  display: flex;
+  min-height: 72vh;
+  padding: 120px 0;
+}
+
+/* Alternancia de fondos para dinamismo visual */
+.content-section:nth-child(odd) {
+  background: var(--color-background);
+}
+
+.content-section:nth-child(even) {
+  background: #F0E3CF;
+}
+
+.section-inner {
+  margin: 0 auto;
+  width: var(--content-width);
+}
+
+.section-eyebrow {
+  color: var(--color-olive-green);
+  display: block;
+  font-family: var(--font-body);
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  margin-bottom: 14px;
+  text-transform: uppercase;
+}
+
+.content-section h2 {
+  color: var(--color-primary);
+  font-family: var(--font-heading);
+  font-size: clamp(2.2rem, 5vw, 4.6rem);
+  font-weight: 500;
+  line-height: 1;
+  margin: 0;
+}
+
+.content-section p {
+  color: var(--color-text-muted);
+  font-size: 1.05rem;
+  line-height: 1.75;
+  margin: 24px 0 0;
+  max-width: 660px;
+}
+
+/* ==========================================================================
+   RESPONSIVE / MEDIA QUERIES (Móviles y Tablets: < 860px)
+   ========================================================================== */
+@media (max-width: 860px) {
+  :root {
+    --header-height: 78px;
+    --content-width: min(100% - 28px, 1180px);
+  }
+
+  .site-header {
+    padding: 0 14px;
+  }
+
+  .brand-mark {
+    height: 48px;
+    width: 48px;
+  }
+
+  .brand-name {
+    font-size: 0.82rem;
+  }
+
+  .brand-subtitle {
+    font-size: 0.58rem;
+    letter-spacing: 0.12em;
+  }
+
+  /* Muestra el botón de menú hamburguesa */
+  .nav-toggle {
+    display: inline-flex;
+    transition: opacity var(--transition-soft), transform var(--transition-soft);
+  }
+
+  .site-header.is-intro .nav-toggle {
+    opacity: 0;
+    pointer-events: none;
+    transform: translateX(18px);
+  }
+
+  /* Menú desplegable tipo drawer en móvil */
+  .main-nav {
+    align-items: stretch;
+    background: rgba(91, 31, 46, 0.96);
+    backdrop-filter: blur(10px);
+    display: grid;
+    gap: 8px;
+    inset: var(--header-height) 0 auto;
+    opacity: 0;
+    padding: 28px;
+    pointer-events: none;
+    position: fixed;
+    transform: translateY(-12px);
+    transition: opacity var(--transition-soft), transform var(--transition-soft);
+  }
+
+  /* Clase añadida con JS para mostrar el menú móvil */
+  .main-nav.is-open {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+  }
+
+  .main-nav a {
+    font-size: 0.9rem;
+    padding: 14px 0;
+  }
+
+  .hero {
+    min-height: 260svh;
+  }
+
+  .hero-stage {
+    height: 100svh;
+    min-height: 640px;
+  }
+
+  .hero-content {
+    padding-bottom: 132px;
+  }
+
+  .scroll-indicator {
+    bottom: 24px;
+    left: 14px;
+    max-width: calc(100% - 28px);
+  }
+}
