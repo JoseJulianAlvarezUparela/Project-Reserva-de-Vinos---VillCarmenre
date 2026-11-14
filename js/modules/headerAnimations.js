@@ -60,24 +60,14 @@ export const initHeaderAnimations = () => {
       window.gsap.set(logo, { opacity: 0 });
       window.gsap.set(brandCopy, { opacity: 0, x: -12 });
       window.gsap.set(nav, { opacity: 0, x: 42 });
-      window.gsap.set(navToggle, { opacity: 0, x: 18 });
-      const navigationElements = [nav, navToggle].filter(Boolean);
+      const isCompactHeader = window.matchMedia("(max-width: 900px)").matches;
+      window.gsap.set(navToggle, isCompactHeader ? { opacity: 1, x: 0 } : { opacity: 0, x: 18 });
+      const navigationElements = [nav, ...(isCompactHeader ? [] : [navToggle])].filter(Boolean);
 
       /**
        * Construcción de la línea de tiempo GSAP sincronizada con el scroll
        */
       const buildIntroTimeline = () => {
-        // Obtenemos coordenadas y dimensiones en pantalla de ambos logos
-        const introRect = introLogo.getBoundingClientRect();
-        const logoRect = logo.getBoundingClientRect();
-
-        // Calculamos la distancia exacta en X e Y para trasladar el logo central hasta el header
-        const x = logoRect.left + logoRect.width / 2 - (introRect.left + introRect.width / 2);
-        const y = logoRect.top + logoRect.height / 2 - (introRect.top + introRect.height / 2);
-
-        // Calculamos la escala relativa entre el tamaño inicial y el tamaño final
-        const scale = logoRect.width / introRect.width;
-
         // Limpia transformaciones previas y asegura el origen de la escala
         window.gsap.set(introLogo, {
           clearProps: "transform",
@@ -110,7 +100,13 @@ export const initHeaderAnimations = () => {
           }
         })
           // 1. Mueve y escala el logo inicial hacia la posición del logo del header
-          .to(introLogo, { x, y, scale, duration: 0.78, ease: "none" }, 0)
+          .to(introLogo, {
+            x: () => logo.getBoundingClientRect().left + logo.getBoundingClientRect().width / 2 - window.innerWidth / 2,
+            y: () => logo.getBoundingClientRect().top + logo.getBoundingClientRect().height / 2 - window.innerHeight / 2,
+            scale: () => logo.getBoundingClientRect().width / introLogo.offsetWidth,
+            duration: 0.78,
+            ease: "none"
+          }, 0)
           // 2. Hace aparecer los elementos del menú de navegación
           .to(navigationElements, { opacity: 1, x: 0, duration: 0.24, ease: "power2.out" }, 0.48)
           // 3. Revela el texto del nombre de la viña en el header
@@ -157,6 +153,7 @@ export const initHeaderAnimations = () => {
     nav.classList.remove("is-open");
     navToggle.classList.remove("is-active");
     navToggle.setAttribute("aria-expanded", "false");
+    navToggle.setAttribute("aria-label", "Abrir menú");
     document.body.classList.remove("menu-open");
   };
 
@@ -167,8 +164,19 @@ export const initHeaderAnimations = () => {
     const isOpen = nav.classList.toggle("is-open");
     navToggle.classList.toggle("is-active", isOpen);
     navToggle.setAttribute("aria-expanded", String(isOpen));
+    navToggle.setAttribute("aria-label", isOpen ? "Cerrar menú" : "Abrir menú");
     document.body.classList.toggle("menu-open", isOpen);
   });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && nav.classList.contains("is-open")) {
+      closeNav();
+      navToggle.focus();
+    }
+  });
+
+  const compactHeader = window.matchMedia("(max-width: 900px)");
+  compactHeader.addEventListener?.("change", closeNav);
 
   /**
    * Cierra automáticamente el menú móvil cuando el usuario hace clic en un enlace de navegación

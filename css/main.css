@@ -58,6 +58,11 @@
   box-sizing: border-box; /* Incluye padding y bordes en el cálculo de tamaños */
 }
 
+html,
+body {
+  overflow-x: hidden; /* Bloquea el scroll horizontal causado por elementos de 500vw (terroir track) */
+}
+
 html {
   scroll-behavior: smooth; /* Desplazamiento suave al hacer clic en anclas (#) */
 }
@@ -329,7 +334,7 @@ a {
    ========================================================================== */
 .hero {
   color: var(--color-hero-text);
-  min-height: 280vh; /* Altura extendida para dar recorrido a la animación de ScrollTrigger */
+  min-height: 220svh; /* Recorrido suficiente para animar sin dejar un tramo largo antes de Historia. */
   position: relative;
 }
 
@@ -538,9 +543,279 @@ a {
 }
 
 /* ==========================================================================
+   SECCIÓN COLECCIÓN & CATAS (Catálogo Minimalista Vertical de 6 Tarjetas)
+   ========================================================================== */
+.collection-section {
+  padding: 120px 0;
+}
+
+/* Ocupa el 90% del ancho de pantalla como solicitó el usuario */
+.collection-section .section-inner {
+  margin: 0 auto;
+  max-width: 1600px;
+  width: 90vw;
+}
+
+.collection-header {
+  margin: 0 auto 56px;
+  max-width: 720px;
+  text-align: center;
+}
+
+.collection-header h2 {
+  margin: 0 0 16px;
+}
+
+.collection-header p {
+  margin: 0 auto;
+}
+
+/* Grid de 3 columnas en escritorio ocupando el 90% de la pantalla */
+.collection-grid {
+  display: grid;
+  gap: clamp(24px, 2.5vw, 40px);
+  grid-template-columns: repeat(3, 1fr);
+  margin-top: 56px;
+  width: 100%;
+}
+
+/* --------------------------------------------------------------------------
+   ANATOMÍA DE LA TARJETA VERTICAL (.wine-card)
+   - Contenedor vertical marcadamente estilizado y alto
+   - Imagen representativa vertical en la parte superior (object-fit: cover)
+   - Nombre del vino en el centro
+   - Botón 'Ordenar' en la base alineado con margin-top: auto
+   -------------------------------------------------------------------------- */
+.wine-card {
+  align-items: center;
+  background: #FAF6F0; /* Fondo crema cálido y minimalista */
+  border: 1px solid rgba(200, 169, 106, 0.35); /* Borde fino dorado patrimonial */
+  border-radius: 16px;
+  box-shadow: 0 10px 28px rgba(43, 26, 29, 0.05);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: clamp(620px, 68vh, 760px); /* Proporción marcadamente vertical y estilizada */
+  padding: 42px 28px 36px;
+  position: relative;
+  text-align: center;
+  transition: transform var(--transition-soft), box-shadow var(--transition-soft), border-color var(--transition-soft);
+}
+
+/* Efecto hover con elevación suave */
+.wine-card:hover {
+  border-color: rgba(200, 169, 106, 0.85);
+  box-shadow: 0 20px 42px rgba(43, 26, 29, 0.1);
+  transform: translateY(-8px);
+}
+
+/* Tarjeta destacada (Reserva de Familia) */
+.wine-card--featured {
+  background: #FFFDF9;
+  border: 1.5px solid var(--color-primary); /* Borde burdeos marcado */
+  box-shadow: 0 16px 38px rgba(91, 31, 46, 0.12), 0 4px 14px rgba(43, 26, 29, 0.05);
+}
+
+.wine-card--featured:hover {
+  box-shadow: 0 24px 48px rgba(91, 31, 46, 0.18);
+  transform: translateY(-10px);
+}
+
+/* Insignia / Tag flotante para vino icono */
+.wine-card__tag {
+  background: var(--color-primary);
+  border-radius: 20px;
+  color: #FFFFFF;
+  font-family: var(--font-body);
+  font-size: 0.64rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  padding: 4px 14px;
+  position: absolute;
+  text-transform: uppercase;
+  top: -12px;
+}
+
+/* Zona superior: Contenedor vertical más alto para la imagen */
+.wine-card__media {
+  align-items: center;
+  border-radius: 10px;
+  display: flex;
+  height: clamp(340px, 34vw, 450px); /* Altura vertical prominente */
+  justify-content: center;
+  margin-bottom: 28px;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}
+
+/* Imagen representativa en orientación vertical mediante cover centrado */
+.wine-card__img {
+  display: block;
+  filter: drop-shadow(0 14px 22px rgba(43, 26, 29, 0.16));
+  height: 100%;
+  object-fit: cover; /* Adapta la imagen a la proporción vertical sin distorsión */
+  object-position: center;
+  transition: transform var(--transition-soft);
+  width: 100%;
+}
+
+.wine-card:hover .wine-card__img {
+  transform: scale(1.06);
+}
+
+/* Zona media: Tipografía y nombre del vino */
+.wine-card__body {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 100%;
+}
+
+.wine-card__vintage {
+  color: var(--color-aged-gold);
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  margin-bottom: 6px;
+  text-transform: uppercase;
+}
+
+.wine-card__title {
+  color: var(--color-primary);
+  display: flex;
+  flex-direction: column;
+  font-family: var(--font-heading);
+  gap: 3px;
+  line-height: 1.15;
+  margin: 0;
+}
+
+.wine-card__edition {
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  opacity: 0.88;
+  text-transform: uppercase;
+}
+
+.wine-card__variety {
+  font-size: 1.4rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+/* Zona inferior: Botón Ordenar empujado al fondo para perfecta alineación */
+.wine-card__footer {
+  display: flex;
+  justify-content: center;
+  margin-top: auto;
+  padding-top: 26px;
+  width: 100%;
+}
+
+/* Botoncito 'Ordenar' minimalista y elegante */
+.wine-card__btn {
+  align-items: center;
+  background: transparent;
+  border: 1px solid var(--color-primary);
+  border-radius: 30px;
+  color: var(--color-primary);
+  display: inline-flex;
+  font-family: var(--font-primary);
+  font-size: 0.74rem;
+  font-weight: 700;
+  gap: 8px;
+  letter-spacing: 0.18em;
+  padding: 11px 32px;
+  position: relative;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: all var(--transition-soft);
+}
+
+.wine-card__btn-arrow {
+  display: inline-block;
+  font-size: 0.95rem;
+  line-height: 1;
+  transition: transform var(--transition-soft);
+}
+
+/* Efecto hover del botón: relleno en burdeos y sutil elevación */
+.wine-card__btn:hover {
+  background: var(--color-primary);
+  box-shadow: 0 6px 18px rgba(91, 31, 46, 0.24);
+  color: var(--color-hero-text);
+  transform: translateY(-2px);
+}
+
+.wine-card__btn:hover .wine-card__btn-arrow {
+  transform: translateX(4px);
+}
+
+/* --------------------------------------------------------------------------
+   RESPONSIVE COMPACTO:
+   - Pantalla mediana: 2 columnas
+   - Pantalla móvil: 1 tarjeta vertical por scroll
+   -------------------------------------------------------------------------- */
+@media (max-width: 1040px) {
+  .collection-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 28px;
+  }
+
+  .wine-card {
+    min-height: 580px;
+  }
+
+  .wine-card__media {
+    height: 340px;
+  }
+}
+
+@media (max-width: 680px) {
+  .collection-section {
+    padding: 70px 0;
+  }
+
+  .collection-section .section-inner {
+    width: 90vw;
+  }
+
+  .collection-grid {
+    grid-template-columns: 1fr;
+    gap: 44px;
+  }
+
+  /* En móvil, una sola tarjeta ocupa la pantalla por scroll */
+  .wine-card {
+    min-height: 84vh;
+    padding: 42px 24px 34px;
+    scroll-margin-top: 84px;
+  }
+
+  .wine-card__media {
+    height: 48vh;
+    max-height: 430px;
+  }
+
+  .wine-card__variety {
+    font-size: 1.5rem;
+  }
+
+  .wine-card__btn {
+    max-width: 280px;
+    padding: 12px 34px;
+    width: 100%;
+  }
+}
+
+/* ==========================================================================
    RESPONSIVE / MEDIA QUERIES (Móviles y Tablets: < 860px)
    ========================================================================== */
-@media (max-width: 860px) {
+@media (max-width: 900px) {
   :root {
     --header-height: 78px;
     --content-width: min(100% - 28px, 1180px);
@@ -605,7 +880,7 @@ a {
   }
 
   .hero {
-    min-height: 260svh;
+    min-height: 200svh;
   }
 
   .hero-stage {
@@ -621,5 +896,182 @@ a {
     bottom: 24px;
     left: 14px;
     max-width: calc(100% - 28px);
+  }
+
+  .content-section {
+    min-height: auto;
+    padding: 86px 0;
+  }
+
+  .collection-section {
+    padding: 86px 0;
+  }
+}
+
+/* Encabezado compacto: marca centrada y control siempre al alcance del pulgar. */
+@media (max-width: 900px) {
+  .site-header {
+    height: calc(var(--header-height) + env(safe-area-inset-top, 0px));
+    padding: env(safe-area-inset-top, 0px) 14px 0;
+  }
+
+  .header-inner {
+    justify-content: center;
+    width: 100%;
+  }
+
+  .brand-link {
+    gap: 10px;
+    justify-content: center;
+    left: 50%;
+    position: absolute;
+    top: calc(env(safe-area-inset-top, 0px) + 8px);
+    transform: translateX(-50%);
+    transform-origin: center;
+    white-space: nowrap;
+  }
+
+  .brand-mark {
+    height: 42px;
+    width: 42px;
+  }
+
+  .brand-copy {
+    gap: 1px;
+  }
+
+  .nav-toggle {
+    align-items: center;
+    background: rgba(91, 31, 46, 0.96);
+    border: 1px solid rgba(200, 169, 106, 0.78);
+    border-radius: 50%;
+    bottom: calc(18px + env(safe-area-inset-bottom, 0px));
+    box-shadow: 0 8px 28px rgba(43, 26, 29, 0.28);
+    display: inline-flex;
+    height: 56px;
+    justify-content: center;
+    position: fixed;
+    right: 18px;
+    width: 56px;
+    z-index: 1000;
+  }
+
+  .site-header.is-intro .nav-toggle {
+    opacity: 1;
+    pointer-events: auto;
+    transform: none;
+  }
+
+  .main-nav {
+    align-items: stretch;
+    background: linear-gradient(145deg, rgba(91, 31, 46, 0.98), rgba(43, 26, 29, 0.98));
+    border: 1px solid rgba(200, 169, 106, 0.48);
+    border-radius: 16px;
+    box-shadow: 0 18px 48px rgba(43, 26, 29, 0.28);
+    display: grid;
+    gap: 2px;
+    inset: auto 18px calc(86px + env(safe-area-inset-bottom, 0px)) auto;
+    max-width: min(320px, calc(100vw - 36px));
+    min-width: min(260px, calc(100vw - 36px));
+    opacity: 0;
+    padding: 14px 22px;
+    pointer-events: none;
+    position: fixed;
+    transform: translateY(10px) scale(0.98);
+    transform-origin: bottom right;
+    transition: opacity 240ms ease, transform 240ms cubic-bezier(0.2, 0.8, 0.2, 1), visibility 240ms;
+    visibility: hidden;
+    z-index: 1001;
+  }
+
+  .main-nav.is-open {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0) scale(1);
+    visibility: visible;
+  }
+
+  .site-header.is-intro .main-nav.is-open {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0) scale(1);
+    visibility: visible;
+  }
+
+  .main-nav a {
+    border-bottom: 1px solid rgba(200, 169, 106, 0.16);
+    font-size: 0.86rem;
+    padding: 14px 2px;
+  }
+
+  .main-nav a:last-child {
+    border-bottom: 0;
+  }
+
+  .hero-stage {
+    min-height: min(100svh, 720px);
+  }
+
+  .intro-screen {
+    height: 100svh;
+  }
+}
+
+@media (max-width: 480px) {
+  .brand-link {
+    gap: 7px;
+  }
+
+  .brand-mark {
+    height: 36px;
+    width: 36px;
+  }
+
+  .brand-name {
+    font-size: 0.72rem;
+  }
+
+  .brand-subtitle {
+    font-size: 0.5rem;
+  }
+
+  .nav-toggle {
+    bottom: calc(14px + env(safe-area-inset-bottom, 0px));
+    height: 52px;
+    right: 14px;
+    width: 52px;
+  }
+
+  .main-nav {
+    inset: auto 14px calc(76px + env(safe-area-inset-bottom, 0px)) auto;
+  }
+
+  .hero-title {
+    font-size: clamp(1.95rem, 9vw, 2.65rem);
+    line-height: 1.06;
+  }
+
+  .hero-content {
+    padding: calc(var(--header-height) + 36px) 0 104px;
+  }
+
+  .hero-subtitle {
+    font-size: 1.18rem;
+    margin-top: 20px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
   }
 }

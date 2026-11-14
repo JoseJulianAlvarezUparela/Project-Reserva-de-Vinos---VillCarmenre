@@ -152,8 +152,10 @@
   .poster-block--reverse {
     flex-direction: column; /* El zig-zag se simplifica verticalmente para lectura móvil. */
     gap: 28px; /* Reduce distancia entre texto e imagen. */
-    height: 100vh; /* Conserva el requerimiento de pantalla completa. */
-    padding: 96px 22px 32px; /* Respeta header y bordes pequeños. */
+    height: auto; /* Deja que el contenido completo defina la altura en tablet y móvil. */
+    min-height: 100svh;
+    overflow: visible;
+    padding: clamp(104px, 14vh, 132px) 22px 56px;
   }
 
   .poster-block__text {
@@ -162,12 +164,132 @@
   }
 
   .poster-block__visual {
-    flex: 1 1 auto; /* La imagen ocupa el espacio vertical disponible. */
-    max-width: min(76vw, 360px); /* Evita marcos demasiado grandes en móvil. */
+    flex: 0 1 auto;
+    max-width: min(76vw, 360px);
     width: 100%; /* Mantiene proporción dentro del contenedor. */
   }
 
   .poster-block__frame {
-    max-height: 42vh; /* Evita que la imagen empuje el texto fuera del viewport. */
+    max-height: 42svh;
+  }
+}
+
+/* Historia a sangre: cada escena se comporta como una portada fotográfica. */
+.poster-block,
+.poster-block--reverse {
+  align-items: flex-end;
+  background: var(--color-bordeaux);
+  height: 100svh;
+  justify-content: flex-start;
+  overflow: hidden;
+  padding: clamp(72px, 10vh, 112px) clamp(24px, 8vw, 120px) clamp(58px, 9vh, 96px);
+  width: 100%;
+}
+
+.poster-block::after {
+  background:
+    linear-gradient(90deg, rgba(30, 16, 20, 0.76) 0%, rgba(30, 16, 20, 0.4) 48%, rgba(30, 16, 20, 0.06) 100%),
+    linear-gradient(0deg, rgba(30, 16, 20, 0.68) 0%, transparent 62%);
+  content: "";
+  inset: 0;
+  pointer-events: none;
+  position: absolute;
+  z-index: 1;
+}
+
+.poster-block__visual {
+  inset: 0;
+  max-width: none;
+  position: absolute;
+  z-index: 0;
+}
+
+.poster-block__frame {
+  aspect-ratio: auto;
+  border: 0;
+  box-shadow: none;
+  height: 100%;
+  width: 100%;
+}
+
+.poster-block__frame img {
+  height: 114%;
+  left: 0;
+  object-position: center;
+  position: absolute;
+  top: -7%;
+  width: 100%;
+}
+
+.poster-block__frame::after {
+  border-color: rgba(247, 242, 233, 0.26);
+  inset: clamp(18px, 3vw, 38px);
+  z-index: 1;
+}
+
+.poster-block::before {
+  z-index: 2;
+}
+
+.poster-block__text {
+  flex: 0 1 760px;
+  max-width: min(760px, 72vw);
+  text-align: left;
+  z-index: 3;
+}
+
+.poster-block__eyebrow {
+  color: var(--color-aged-gold);
+}
+
+.poster-block__title,
+.poster-block--bordeaux .poster-block__title {
+  color: var(--color-hero-text);
+}
+
+.poster-block__copy,
+.poster-block--bordeaux .poster-block__copy {
+  color: rgba(255, 249, 239, 0.86);
+}
+
+@media (max-width: 900px) {
+  .poster-block,
+  .poster-block--reverse {
+    align-items: flex-end;
+    height: auto;
+    min-height: 100svh;
+    overflow: hidden;
+    padding: clamp(112px, 18vh, 160px) 24px 64px;
+  }
+
+  .poster-block__text {
+    flex: 0 1 auto;
+    max-width: min(100%, 680px);
+    width: 100%;
+  }
+
+  .poster-block__visual {
+    flex: none;
+    max-width: none;
+    width: auto;
+  }
+
+  .poster-block__frame {
+    max-height: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .poster-block,
+  .poster-block--reverse {
+    padding: 112px 22px 52px;
+  }
+
+  .poster-block__copy {
+    margin-top: 20px;
+  }
+
+  .poster-block__frame::after {
+    inset: 14px;
   }
 }

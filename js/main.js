@@ -11,6 +11,9 @@
 import { initHeaderAnimations } from "./modules/headerAnimations.js";
 import { initHeroAnimations } from "./modules/heroAnimations.js";
 import { initHistoryAnimations } from "./modules/historyAnimations.js";
+import { initCatalog } from "./modules/catalog.js";
+import { initTerroirExperience } from "./modules/terroirExperience.js";
+import { initReservas } from "./modules/reservas.js";
 
 /**
  * Función que arranca la lógica interactiva del sitio.
@@ -19,6 +22,9 @@ const initSite = () => {
   initHeaderAnimations();
   initHeroAnimations();
   initHistoryAnimations();
+  initCatalog();
+  initTerroirExperience();
+  initReservas();
 };
 
 /**

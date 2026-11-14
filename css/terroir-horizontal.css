@@ -1,0 +1,372 @@
+/* ==========================================================================
+   SECCIÓN: EL TERROIR & FINCA — RECORRIDO CINEMATOGRÁFICO
+   ==========================================================================
+   DESKTOP (> 900px): Scroll horizontal pinneado — 500vw, 5 paneles de 100vw.
+   MÓVIL   (≤ 900px): Scroll vertical pinneado  — paneles apilados en Z 100vh.
+
+   Ambos modos comparten:
+   - La misma estructura HTML (.terroir-track > .terroir-panel × 5)
+   - El mismo diseño visual de cada panel (bg-wrap, overlay, content centrado)
+   - El mismo HUD con contador, barra de avance y puntos de panel
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. CONTENEDOR PRINCIPAL — compartido desktop y móvil
+   -------------------------------------------------------------------------- */
+.terroir-experience {
+  height: 100vh;
+  min-height: 580px;
+  overflow: hidden;        /* Contiene los paneles fuera de viewport */
+  position: relative;
+  width: 100%;
+  z-index: 5;
+}
+
+/* ==========================================================================
+   2. DESKTOP (> 900px): RIEL HORIZONTAL DE 500vw
+   ========================================================================== */
+@media (min-width: 901px) {
+
+  /* Riel horizontal: flex-row con los 5 paneles en fila, ancho total 500vw */
+  .terroir-track {
+    display: flex;
+    height: 100vh;
+    min-height: 580px;
+    width: 500vw;             /* 5 paneles × 100vw = 500vw en total */
+    will-change: transform;   /* Optimización GPU para el tween horizontal */
+  }
+
+  /* Cada panel ocupa exactamente 100vw × 100vh en la fila horizontal */
+  .terroir-panel {
+    align-items: center;
+    box-sizing: border-box;
+    display: flex;
+    flex-shrink: 0;
+    height: 100vh;
+    justify-content: center;  /* Centra el contenido horizontalmente */
+    overflow: hidden;
+    position: relative;
+    width: 100vw;
+  }
+
+  /* Imagen de fondo un 30% más ancha para el parallax xPercent inverso */
+  .terroir-panel__bg {
+    display: block;
+    filter: brightness(0.82);
+    height: 100%;
+    left: -15%;               /* Margen izquierdo para el parallax */
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    width: 130%;              /* Excedente lateral para xPercent */
+    will-change: transform;
+  }
+
+  /* HUD en desktop: horizontal, pegado en la parte inferior */
+  .terroir-hud {
+    align-items: center;
+    bottom: 32px;
+    display: flex;
+    flex-direction: row;
+    gap: 24px;
+    justify-content: center;
+    left: 0;
+    padding: 0 48px;
+    pointer-events: none;
+    position: absolute;
+    right: 0;
+    user-select: none;
+    z-index: 10;
+  }
+
+  /* Barra de progreso horizontal en desktop */
+  .terroir-progress-track {
+    background: rgba(255, 249, 239, 0.2);
+    border-radius: 4px;
+    height: 2px;
+    overflow: hidden;
+    width: 120px;
+  }
+
+  /* El relleno crece de izquierda a derecha según el avance */
+  .terroir-progress-fill {
+    background: linear-gradient(to right, var(--color-aged-gold, #C8A96A), rgba(200, 169, 106, 0.5));
+    border-radius: 4px;
+    height: 100%;
+    transition: width 0.08s linear;
+    width: 20%;               /* Valor inicial, GSAP actualiza inline */
+  }
+
+  /* Puntos de panel en fila horizontal */
+  .terroir-dots {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+  }
+
+  /* Sugerencia de scroll en horizontal */
+  .terroir-hud__hint {
+    color: rgba(255, 249, 239, 0.55);
+    font-family: var(--font-body, "Lato", sans-serif);
+    font-size: 0.65rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+}
+
+/* ==========================================================================
+   3. MÓVIL (≤ 900px): PILA VERTICAL DE PANELES
+   ========================================================================== */
+@media (max-width: 900px) {
+
+  /* El track se convierte en contenedor relativo — los paneles se apilan en Z */
+  .terroir-track {
+    height: 100%;
+    position: relative;
+    width: 100%;
+  }
+
+  /* Cada panel se posiciona absoluto sobre el mismo espacio y se mueve en Y */
+  .terroir-panel {
+    display: grid;
+    height: 100%;
+    inset: 0;
+    overflow: hidden;
+    place-items: center;      /* Centra el contenido en ambos ejes (shorthand CSS) */
+    position: absolute;
+    width: 100%;
+    will-change: transform;   /* Optimización GPU para el tween vertical */
+  }
+
+  /* Z-index de apilamiento: el panel 1 está encima al inicio */
+  .terroir-panel[data-panel="1"] { z-index: 5; }
+  .terroir-panel[data-panel="2"] { z-index: 4; }
+  .terroir-panel[data-panel="3"] { z-index: 3; }
+  .terroir-panel[data-panel="4"] { z-index: 2; }
+  .terroir-panel[data-panel="5"] { z-index: 1; }
+
+  /* Imagen de fondo un 20% más alta para el parallax yPercent */
+  .terroir-panel__bg {
+    display: block;
+    filter: brightness(0.78);
+    height: 120%;
+    object-fit: cover;
+    position: absolute;
+    top: -10%;                /* Centrada con margen para el desplazamiento vertical */
+    width: 100%;
+    will-change: transform;
+  }
+
+  /* HUD en móvil: lateral derecho en columna vertical */
+  .terroir-hud {
+    align-items: center;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    justify-content: center;
+    padding: 32px 0;
+    pointer-events: none;
+    position: absolute;
+    right: clamp(16px, 5vw, 36px);
+    top: 0;
+    user-select: none;
+    z-index: 10;
+  }
+
+  /* Barra de progreso vertical en móvil */
+  .terroir-progress-track {
+    background: rgba(255, 249, 239, 0.2);
+    border-radius: 4px;
+    height: 90px;
+    overflow: hidden;
+    width: 2px;
+  }
+
+  /* El relleno crece de arriba a abajo según el avance */
+  .terroir-progress-fill {
+    background: linear-gradient(to bottom, var(--color-aged-gold, #C8A96A), rgba(200, 169, 106, 0.5));
+    border-radius: 4px;
+    height: 20%;              /* Valor inicial, GSAP actualiza inline */
+    transition: height 0.08s linear;
+    width: 100%;
+  }
+
+  /* Puntos de panel en columna vertical */
+  .terroir-dots {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  /* Sugerencia rotada para leer en sentido vertical */
+  .terroir-hud__hint {
+    color: rgba(255, 249, 239, 0.5);
+    font-family: var(--font-body, "Lato", sans-serif);
+    font-size: 0.6rem;
+    letter-spacing: 0.16em;
+    transform: rotate(90deg);
+    white-space: nowrap;
+  }
+}
+
+/* ==========================================================================
+   4. ESTILOS COMPARTIDOS — independientes del breakpoint
+   ========================================================================== */
+
+/* Fondo oscuro del panel */
+.terroir-panel__bg-wrap {
+  inset: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: 1;
+}
+
+/* Superposición en gradiente: más oscura en la zona del texto */
+.terroir-panel__overlay {
+  background: linear-gradient(
+    to top,
+    rgba(20, 6, 10, 0.78) 0%,
+    rgba(20, 6, 10, 0.42) 38%,
+    rgba(20, 6, 10, 0.18) 65%,
+    transparent            100%
+  );
+  inset: 0;
+  position: absolute;
+  z-index: 2;
+}
+
+/* Contenido del panel: flex-col centrado, encima de la imagen */
+.terroir-panel__content {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  justify-content: center;
+  max-width: min(820px, 88vw);
+  padding: 32px 24px;
+  position: relative;
+  text-align: center;
+  z-index: 3;
+}
+
+/* Eyebrow / kicker del panel */
+.terroir-panel__kicker {
+  color: var(--color-aged-gold, #C8A96A);
+  font-family: var(--font-body, "Lato", sans-serif);
+  font-size: clamp(0.68rem, 1.2vw, 0.8rem);
+  font-weight: 700;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+}
+
+/* Título principal */
+.terroir-panel__title {
+  color: #FFF9EF;
+  font-family: var(--font-heading, "Cinzel", Georgia, serif);
+  font-size: clamp(2.2rem, 6vw, 5rem);
+  font-weight: 500;
+  letter-spacing: -0.015em;
+  line-height: 1.08;
+  margin: 0;
+}
+
+/* Línea ornamental divisora entre título y párrafo */
+.terroir-panel__divider {
+  background: linear-gradient(90deg, transparent, rgba(200, 169, 106, 0.85), transparent);
+  flex-shrink: 0;
+  height: 1px;
+  width: 72px;
+}
+
+/* Párrafo descriptivo */
+.terroir-panel__copy {
+  color: rgba(255, 249, 239, 0.88);
+  font-family: var(--font-body, "Lato", sans-serif);
+  font-size: clamp(1rem, 1.8vw, 1.18rem);
+  font-weight: 300;
+  line-height: 1.72;
+  margin: 0;
+  max-width: 580px;
+}
+
+/* Botón CTA (panel 5) */
+.terroir-panel__cta {
+  align-items: center;
+  border: 1px solid rgba(200, 169, 106, 0.75);
+  border-radius: 32px;
+  color: #FFF9EF;
+  display: inline-flex;
+  font-family: var(--font-heading, "Cinzel", Georgia, serif);
+  font-size: 0.84rem;
+  font-weight: 600;
+  gap: 12px;
+  letter-spacing: 0.18em;
+  margin-top: 10px;
+  padding: 14px 32px;
+  text-transform: uppercase;
+  transition: all 0.28s ease;
+}
+
+.terroir-panel__cta:hover {
+  background: rgba(200, 169, 106, 0.18);
+  border-color: #C8A96A;
+  transform: translateY(-3px);
+}
+
+.terroir-panel__cta-arrow {
+  font-size: 1.1rem;
+  line-height: 1;
+  transition: transform 0.24s ease;
+}
+
+.terroir-panel__cta:hover .terroir-panel__cta-arrow {
+  transform: translateX(5px);
+}
+
+/* HUD compartido — estilos base */
+.terroir-counter {
+  align-items: baseline;
+  color: rgba(255, 249, 239, 0.9);
+  display: flex;
+  font-family: var(--font-heading, "Cinzel", Georgia, serif);
+  font-size: 0.88rem;
+  gap: 4px;
+  letter-spacing: 0.08em;
+}
+
+.terroir-counter__current {
+  color: var(--color-aged-gold, #C8A96A);
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1;
+  transition: all 0.3s ease;
+}
+
+.terroir-counter__sep {
+  color: rgba(255, 249, 239, 0.4);
+  font-size: 0.75rem;
+}
+
+.terroir-counter__total {
+  color: rgba(255, 249, 239, 0.5);
+  font-size: 0.82rem;
+}
+
+/* Punto de panel: inactivo */
+.terroir-dot {
+  background: rgba(255, 249, 239, 0.3);
+  border-radius: 50%;
+  display: block;
+  height: 6px;
+  transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+  width: 6px;
+}
+
+/* Punto activo: dorado y escalado */
+.terroir-dot.is-active {
+  background: var(--color-aged-gold, #C8A96A);
+  box-shadow: 0 0 8px rgba(200, 169, 106, 0.6);
+  transform: scale(1.55);
+}

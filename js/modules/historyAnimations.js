@@ -62,8 +62,9 @@ export const initHistoryAnimations = () => {
     // Prepara la imagen antes del scroll: ligeramente ampliada y transparente.
     window.gsap.set(image, {
       opacity: 0,
-      scale: 1.1,
-      yPercent: 4,
+      clipPath: "inset(8% 0% 8% 0%)",
+      scale: 1.12,
+      yPercent: 3,
       transformOrigin: "center center"
     });
 
@@ -74,40 +75,37 @@ export const initHistoryAnimations = () => {
     });
 
     // Crea una línea de tiempo vinculada al scroll para este póster específico.
-    const timeline = window.gsap.timeline({
-      scrollTrigger: {
-        trigger: block,
-        start: "top top",
-        end: "+=100%",
-        scrub: 1,
-        pin: true,
-        pinSpacing: true,
-        anticipatePin: 1
-      }
-    });
+    const createTimeline = (isCompactViewport) => {
+      const timeline = window.gsap.timeline({
+        scrollTrigger: {
+          trigger: block,
+          start: isCompactViewport ? "top 82%" : "top top",
+          end: isCompactViewport ? "bottom 24%" : "+=100%",
+          scrub: 1,
+          pin: !isCompactViewport,
+          pinSpacing: !isCompactViewport,
+          anticipatePin: isCompactViewport ? 0 : 1,
+          invalidateOnRefresh: true
+        }
+      });
 
-    // Revela la imagen con una máscara visual basada en escala y opacidad.
-    timeline.to(image, {
-      opacity: 1,
-      scale: 1,
-      duration: 0.28,
-      ease: "power2.out"
-    }, 0.04);
+      timeline.to(image, {
+        clipPath: "inset(0% 0% 0% 0%)",
+        opacity: 1,
+        scale: 1,
+        duration: 0.36,
+        ease: "power2.out"
+      }, 0.04);
+      timeline.to(textItems, {
+        opacity: 1, x: 0, duration: 0.3, ease: "power2.out", stagger: 0.15
+      }, 0.12);
+      timeline.to(image, {
+        yPercent: -4, duration: 0.7, ease: "none"
+      }, 0.28);
+    };
 
-    // Hace entrar año, titular y párrafo en cascada desde el lateral correspondiente.
-    timeline.to(textItems, {
-      opacity: 1,
-      x: 0,
-      duration: 0.3,
-      ease: "power2.out",
-      stagger: 0.15
-    }, 0.12);
-
-    // Aplica parallax sutil a la imagen durante el mismo scroll fijado.
-    timeline.to(image, {
-      yPercent: -10,
-      duration: 0.7,
-      ease: "none"
-    }, 0.28);
+    const responsiveAnimations = window.gsap.matchMedia();
+    responsiveAnimations.add("(max-width: 900px)", () => createTimeline(true));
+    responsiveAnimations.add("(min-width: 901px)", () => createTimeline(false));
   });
 };

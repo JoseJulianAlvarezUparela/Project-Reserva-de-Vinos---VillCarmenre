@@ -1,0 +1,1101 @@
+/* ==========================================================================
+   SECCIÓN 4: SANCTUARIUM & RESERVAS (Atención Personalizada y Concierge)
+   ==========================================================================
+   Esta hoja de estilos diseña la experiencia de reserva de alta gama:
+   - Acabados patrimoniales de alta artesanía: marcos de doble filete dorado,
+     filigranas y sellos de cera heráldicos estilo bodega centenaria (1892).
+   - Selector interactivo de experiencias exclusivas sincronizado en tiempo real.
+   - Formulario Concierge estilo libro de visitas de club privado con retroalimentación en vivo.
+   - Tríptico de privilegios de cortesía con medallones vectoriales dorados.
+   - Pie de página (Footer) monumental en Burdeos real con detalles de alta alcurnia.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. CONTENEDOR GENERAL Y AMBIENTACIÓN EDITORIAL
+   -------------------------------------------------------------------------- */
+.sanctuarium-section {
+  /* Fondo cálido multicapa con resplandores ambarinos y burdeos tenues */
+  background:
+    radial-gradient(circle at 12% 16%, rgba(200, 169, 106, 0.09) 0%, transparent 48%),
+    radial-gradient(circle at 88% 82%, rgba(91, 31, 46, 0.06) 0%, transparent 52%),
+    #FAF6F0;
+  border-top: 1px solid rgba(200, 169, 106, 0.25);
+  overflow: hidden;
+  padding: 130px 0 0;
+  position: relative;
+}
+
+.sanctuarium-section .section-inner {
+  margin: 0 auto;
+  max-width: 1600px;
+  width: 90vw;
+}
+
+/* --------------------------------------------------------------------------
+   2. ENCABEZADO EDITORIAL DE LA SECCIÓN
+   -------------------------------------------------------------------------- */
+.sanctuarium-header {
+  margin: 0 auto 64px;
+  max-width: 820px;
+  position: relative;
+  text-align: center;
+}
+
+/* Placa superior del encabezado con diamantes dorados */
+.sanctuarium-header__badge {
+  align-items: center;
+  display: inline-flex;
+  gap: 12px;
+  justify-content: center;
+  margin-bottom: 14px;
+}
+
+.badge-ornament {
+  color: var(--color-aged-gold, #C8A96A);
+  font-size: 0.72rem;
+  opacity: 0.85;
+}
+
+.sanctuarium-header .section-eyebrow {
+  color: var(--color-aged-gold, #C8A96A);
+  font-family: var(--font-body, "Lato", sans-serif);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+}
+
+/* Título monumental en Cinzel */
+.sanctuarium-header h2 {
+  color: var(--color-primary, #5B1F2E);
+  font-family: var(--font-heading, "Cinzel", Georgia, serif);
+  font-size: clamp(2.4rem, 5vw, 4.1rem);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  line-height: 1.08;
+  margin: 0 0 16px;
+}
+
+/* Friso divisor central con símbolo clásico */
+.sanctuarium-header__crest {
+  align-items: center;
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  margin: 0 auto 24px;
+  width: 180px;
+}
+
+.crest-line {
+  background: linear-gradient(90deg, transparent, rgba(200, 169, 106, 0.7), transparent);
+  flex: 1;
+  height: 1px;
+}
+
+.crest-symbol {
+  color: var(--color-aged-gold, #C8A96A);
+  font-size: 0.75rem;
+  line-height: 1;
+}
+
+/* Párrafo narrativo con tono íntimo y tipografía refinada */
+.sanctuarium-narrative {
+  color: var(--color-text-muted, #6F6257);
+  font-family: var(--font-body, "Lato", sans-serif);
+  font-size: 1.08rem;
+  font-weight: 300;
+  line-height: 1.8;
+  margin: 0 auto;
+}
+
+/* --------------------------------------------------------------------------
+   3. REJILLA PRINCIPAL (Selector Izquierdo + Formulario Concierge Derecho)
+   -------------------------------------------------------------------------- */
+.sanctuarium-grid {
+  display: grid;
+  gap: clamp(36px, 4.5vw, 64px);
+  grid-template-columns: 1.15fr 1fr;
+  margin-bottom: 104px;
+  width: 100%;
+}
+
+/* --------------------------------------------------------------------------
+   4. COLUMNA IZQUIERDA: TARJETAS DE EXPERIENCIA (Haute Artesanía)
+   -------------------------------------------------------------------------- */
+.sanctuarium-experiences {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.sanctuarium-experiences__intro {
+  margin-bottom: 4px;
+}
+
+.sanctuarium-column-badge {
+  color: var(--color-aged-gold, #C8A96A);
+  display: inline-block;
+  font-family: var(--font-body, "Lato", sans-serif);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  margin-bottom: 6px;
+  text-transform: uppercase;
+}
+
+.sanctuarium-column-title {
+  color: var(--color-primary, #5B1F2E);
+  font-family: var(--font-heading, "Cinzel", Georgia, serif);
+  font-size: 1.45rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  margin: 0 0 6px;
+}
+
+.sanctuarium-column-subtitle {
+  color: #8A7768;
+  font-family: var(--font-body, "Lato", sans-serif);
+  font-size: 0.88rem;
+  font-weight: 400;
+  margin: 0 0 20px;
+}
+
+/* Tarjeta interactiva de Experiencia */
+.experience-card {
+  background: #FFFFFF;
+  border: 1px solid rgba(200, 169, 106, 0.4);
+  border-radius: 18px;
+  box-shadow: 0 10px 30px rgba(43, 26, 29, 0.04);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  outline: 1px solid rgba(200, 169, 106, 0.15);
+  outline-offset: -7px;
+  overflow: hidden;
+  padding: 30px 34px;
+  position: relative;
+  transition: all 0.32s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+/* Número Romano ornamental en marca de agua */
+.experience-card__numeral {
+  color: rgba(200, 169, 106, 0.2);
+  font-family: var(--font-heading, "Cinzel", Georgia, serif);
+  font-size: 2.2rem;
+  font-weight: 700;
+  line-height: 1;
+  pointer-events: none;
+  position: absolute;
+  right: 28px;
+  top: 20px;
+  transition: all 0.3s ease;
+  user-select: none;
+}
+
+/* Efecto hover refinado */
+.experience-card:hover {
+  border-color: rgba(200, 169, 106, 0.85);
+  box-shadow: 0 18px 42px rgba(43, 26, 29, 0.08), 0 2px 10px rgba(200, 169, 106, 0.18);
+  outline-color: rgba(200, 169, 106, 0.3);
+  transform: translateY(-4px);
+}
+
+.experience-card:hover .experience-card__numeral {
+  color: rgba(200, 169, 106, 0.45);
+}
+
+/* Estado de tarjeta seleccionada: fondo en marfil cálido y borde Burdeos con realce dorado */
+.experience-card.is-selected {
+  background: linear-gradient(145deg, #FFFFFF 0%, #FFFDF9 55%, #FAF4E8 100%);
+  border: 1.5px solid var(--color-primary, #5B1F2E);
+  border-left: 4.5px solid var(--color-primary, #5B1F2E);
+  box-shadow:
+    0 22px 50px rgba(91, 31, 46, 0.12),
+    0 2px 12px rgba(200, 169, 106, 0.25),
+    inset 0 0 0 1px rgba(200, 169, 106, 0.65);
+  outline-color: rgba(200, 169, 106, 0.4);
+}
+
+.experience-card.is-selected .experience-card__numeral {
+  color: var(--color-aged-gold, #C8A96A);
+}
+
+/* Cabecera de la tarjeta con meta información y selector radio */
+.experience-card__header {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.experience-card__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+/* Píldoras de duración y capacidad con estilo relojero */
+.experience-card__pill {
+  align-items: center;
+  background: rgba(200, 169, 106, 0.1);
+  border: 1px solid rgba(200, 169, 106, 0.32);
+  border-radius: 20px;
+  color: var(--color-primary, #5B1F2E);
+  display: inline-flex;
+  font-family: var(--font-body, "Lato", sans-serif);
+  font-size: 0.68rem;
+  font-weight: 700;
+  gap: 6px;
+  letter-spacing: 0.12em;
+  padding: 4px 11px;
+  text-transform: uppercase;
+}
+
+.experience-card__pill--gold {
+  background: linear-gradient(135deg, rgba(200, 169, 106, 0.24), rgba(200, 169, 106, 0.1));
+  border-color: rgba(200, 169, 106, 0.65);
+  color: #8C6A28;
+}
+
+.meta-icon {
+  color: var(--color-aged-gold, #C8A96A);
+  flex-shrink: 0;
+  height: 13px;
+  width: 13px;
+}
+
+/* Indicador Radio de alta precisión con anillo dorado y gema carmesí */
+.experience-card__radio {
+  align-items: center;
+  background: #FAF6F0;
+  border: 1.5px solid rgba(200, 169, 106, 0.6);
+  border-radius: 50%;
+  display: flex;
+  flex-shrink: 0;
+  height: 22px;
+  justify-content: center;
+  transition: all 0.26s ease;
+  width: 22px;
+}
+
+.radio-core {
+  background: var(--color-primary, #5B1F2E);
+  border-radius: 50%;
+  box-shadow: 0 0 6px rgba(91, 31, 46, 0.4);
+  display: block;
+  height: 10px;
+  opacity: 0;
+  transform: scale(0);
+  transition: all 0.28s cubic-bezier(0.34, 1.56, 0.64, 1);
+  width: 10px;
+}
+
+.experience-card.is-selected .experience-card__radio {
+  border-color: var(--color-primary, #5B1F2E);
+  box-shadow: 0 0 0 2px rgba(200, 169, 106, 0.4);
+}
+
+.experience-card.is-selected .radio-core {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Título de la experiencia */
+.experience-card__title {
+  color: var(--color-primary, #5B1F2E);
+  font-family: var(--font-heading, "Cinzel", Georgia, serif);
+  font-size: 1.32rem;
+  font-weight: 600;
+  line-height: 1.25;
+  margin: 0 0 8px;
+}
+
+.experience-card__desc {
+  color: var(--color-text-muted, #6F6257);
+  font-family: var(--font-body, "Lato", sans-serif);
+  font-size: 0.94rem;
+  font-weight: 300;
+  line-height: 1.62;
+  margin: 0 0 14px;
+}
+
+/* Reseña o nota del Sommelier con ribete dorado */
+.experience-card__sommelier-note {
+  align-items: flex-start;
+  background: rgba(200, 169, 106, 0.08);
+  border-left: 2.5px solid var(--color-aged-gold, #C8A96A);
+  border-radius: 0 8px 8px 0;
+  display: flex;
+  gap: 8px;
+  margin: 0 0 16px;
+  padding: 10px 14px;
+}
+
+.note-quote {
+  color: var(--color-aged-gold, #C8A96A);
+  font-family: var(--font-heading, "Cinzel", Georgia, serif);
+  font-size: 1.3rem;
+  line-height: 1;
+}
+
+.experience-card__sommelier-note p {
+  color: #5F4C40;
+  font-family: var(--font-subheading, "Playfair Display", Georgia, serif);
+  font-size: 0.88rem;
+  font-style: italic;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* Badges de atributos con borde sutil */
+.experience-card__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.experience-card__tag {
+  background: #FAF7F2;
+  border: 1px solid rgba(200, 169, 106, 0.38);
+  border-radius: 16px;
+  color: var(--color-primary, #5B1F2E);
+  font-family: var(--font-body, "Lato", sans-serif);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  padding: 4px 12px;
+  text-transform: uppercase;
+  transition: all 0.2s ease;
+}
+
+.experience-card:hover .experience-card__tag {
+  border-color: rgba(200, 169, 106, 0.7);
+}
+
+/* --------------------------------------------------------------------------
+   5. COLUMNA DERECHA: FORMULARIO CONCIERGE (Libro de Visitas de Alta Gama)
+   -------------------------------------------------------------------------- */
+.concierge-card {
+  background: linear-gradient(170deg, #FFFFFF 0%, #FDFBF8 60%, #FAF5EB 100%);
+  border: 1px solid rgba(200, 169, 106, 0.55);
+  border-radius: 22px;
+  box-shadow:
+    0 24px 64px rgba(43, 26, 29, 0.09),
+    0 4px 18px rgba(200, 169, 106, 0.1);
+  display: flex;
+  flex-direction: column;
+  outline: 1px solid rgba(200, 169, 106, 0.25);
+  outline-offset: -9px;
+  padding: 48px 40px 38px;
+  position: relative;
+}
+
+/* Sello heráldico de cera en la parte superior */
+.concierge-seal {
+  filter: drop-shadow(0 6px 14px rgba(91, 31, 46, 0.35));
+  height: 56px;
+  left: 50%;
+  position: absolute;
+  top: -28px;
+  transform: translateX(-50%);
+  transition: transform 0.3s ease;
+  width: 56px;
+}
+
+.concierge-seal:hover {
+  transform: translateX(-50%) scale(1.06);
+}
+
+/* Cabecera del formulario */
+.concierge-card__header {
+  border-bottom: 1px solid rgba(200, 169, 106, 0.25);
+  margin-bottom: 24px;
+  padding: 12px 0 18px;
+  text-align: center;
+}
+
+.concierge-card__eyebrow {
+  color: var(--color-aged-gold, #C8A96A);
+  display: block;
+  font-family: var(--font-body, "Lato", sans-serif);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.24em;
+  margin-bottom: 6px;
+  text-transform: uppercase;
+}
+
+.concierge-card__title {
+  color: var(--color-primary, #5B1F2E);
+  font-family: var(--font-heading, "Cinzel", Georgia, serif);
+  font-size: 1.68rem;
+  font-weight: 600;
+  margin: 0 0 4px;
+}
+
+.concierge-card__subtitle {
+  color: #7D6B5F;
+  font-family: var(--font-body, "Lato", sans-serif);
+  font-size: 0.82rem;
+  font-weight: 300;
+  margin: 0;
+}
+
+/* Indicador dinámico de la vivencia elegida estilo pase privado */
+.concierge-card__selection-notice {
+  background: linear-gradient(90deg, rgba(200, 169, 106, 0.14) 0%, rgba(91, 31, 46, 0.06) 50%, rgba(200, 169, 106, 0.14) 100%);
+  border: 1px dashed rgba(200, 169, 106, 0.65);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 24px;
+  padding: 12px 18px;
+}
+
+.notice-meta {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+
+.notice-label {
+  color: var(--color-aged-gold, #C8A96A);
+  font-family: var(--font-body, "Lato", sans-serif);
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.notice-badge {
+  background: rgba(91, 31, 46, 0.1);
+  border-radius: 10px;
+  color: var(--color-primary, #5B1F2E);
+  font-family: var(--font-body, "Lato", sans-serif);
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  padding: 2px 8px;
+}
+
+.concierge-card__selection-name {
+  color: var(--color-primary, #5B1F2E);
+  font-family: var(--font-heading, "Cinzel", Georgia, serif);
+  font-size: 0.98rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+/* Estructura del formulario */
+.concierge-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.form-row {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: 1fr 1fr;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  text-align: left;
+}
+
+.form-label {
+  color: #382427;
+  font-family: var(--font-body, "Lato", sans-serif);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.label-required {
+  color: var(--color-accent, #B65A3C);
+}
+
+/* Campos de entrada con acabado cálido y tacto editorial */
+.form-input,
+.form-select,
+.form-textarea {
+  background: #FCFAF6;
+  border: 1px solid rgba(200, 169, 106, 0.45);
+  border-radius: 8px;
+  box-shadow: inset 0 1px 3px rgba(43, 26, 29, 0.03);
+  box-sizing: border-box;
+  color: var(--color-text, #2B1A1D);
+  font-family: var(--font-body, "Lato", sans-serif);
+  font-size: 0.92rem;
+  padding: 12px 14px;
+  transition: all 0.25s ease;
+  width: 100%;
+}
+
+.form-input::placeholder,
+.form-textarea::placeholder {
+  color: #A39386;
+  font-style: italic;
+}
+
+.form-input:focus,
+.form-select:focus,
+.form-textarea:focus {
+  background: #FFFFFF;
+  border-color: var(--color-primary, #5B1F2E);
+  box-shadow:
+    0 0 0 3px rgba(200, 169, 106, 0.25),
+    0 4px 12px rgba(91, 31, 46, 0.06);
+  outline: none;
+}
+
+.form-textarea {
+  min-height: 85px;
+  resize: vertical;
+}
+
+/* Select personalizado */
+.select-wrapper {
+  position: relative;
+}
+
+.form-select {
+  appearance: none;
+  cursor: pointer;
+  padding-right: 32px;
+}
+
+.select-wrapper::after {
+  color: var(--color-aged-gold, #C8A96A);
+  content: "▾";
+  font-size: 0.9rem;
+  pointer-events: none;
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* Botón de solicitud de reserva con acabados de alta joyería */
+.concierge-submit-btn {
+  align-items: center;
+  background: linear-gradient(135deg, #6B2336 0%, #461521 100%);
+  border: 1px solid rgba(200, 169, 106, 0.65);
+  border-radius: 30px;
+  box-shadow:
+    0 12px 28px rgba(91, 31, 46, 0.28),
+    0 2px 6px rgba(200, 169, 106, 0.2);
+  color: #FFF9EF;
+  cursor: pointer;
+  display: inline-flex;
+  font-family: var(--font-heading, "Cinzel", Georgia, serif);
+  font-size: 0.82rem;
+  font-weight: 700;
+  justify-content: center;
+  letter-spacing: 0.22em;
+  margin-top: 8px;
+  overflow: hidden;
+  padding: 16px 32px;
+  position: relative;
+  text-transform: uppercase;
+  transition: all 0.28s ease;
+  width: 100%;
+}
+
+/* Reflejo de luz deslizante en hover (Shimmer) */
+.btn-shimmer {
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.25), transparent);
+  height: 200%;
+  left: -70%;
+  position: absolute;
+  top: -50%;
+  transform: rotate(30deg);
+  transition: all 0.65s ease;
+  width: 60%;
+}
+
+.concierge-submit-btn:hover {
+  box-shadow:
+    0 16px 36px rgba(91, 31, 46, 0.4),
+    0 0 14px rgba(200, 169, 106, 0.35);
+  transform: translateY(-2px);
+}
+
+.concierge-submit-btn:hover .btn-shimmer {
+  left: 130%;
+}
+
+.concierge-submit-btn:active {
+  transform: translateY(0);
+}
+
+.btn-text {
+  position: relative;
+  z-index: 2;
+}
+
+/* Micro-garantía de confidencialidad */
+.concierge-trust-banner {
+  align-items: center;
+  color: #7F6F63;
+  display: flex;
+  font-family: var(--font-body, "Lato", sans-serif);
+  font-size: 0.74rem;
+  gap: 8px;
+  justify-content: center;
+  margin-top: 14px;
+  text-align: center;
+}
+
+.trust-icon {
+  color: var(--color-aged-gold, #C8A96A);
+  flex-shrink: 0;
+  height: 14px;
+  width: 14px;
+}
+
+/* Cuadro de confirmación en tiempo real */
+.concierge-feedback {
+  background: rgba(91, 31, 46, 0.08);
+  border: 1px solid var(--color-primary, #5B1F2E);
+  border-radius: 8px;
+  color: var(--color-primary, #5B1F2E);
+  display: none;
+  font-family: var(--font-body, "Lato", sans-serif);
+  font-size: 0.88rem;
+  line-height: 1.5;
+  margin-top: 16px;
+  padding: 16px;
+  text-align: center;
+}
+
+.concierge-feedback.is-visible {
+  display: block;
+}
+
+/* --------------------------------------------------------------------------
+   6. PRIVILEGIOS SANCTUARIUM (4 Medallones Labrados en Oro)
+   -------------------------------------------------------------------------- */
+.sanctuarium-privileges {
+  background: rgba(255, 255, 255, 0.45);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(200, 169, 106, 0.35);
+  border-radius: 16px;
+  display: grid;
+  gap: 32px;
+  grid-template-columns: repeat(4, 1fr);
+  margin-bottom: 96px;
+  padding: 54px 32px;
+  position: relative;
+}
+
+.privilege-item {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  position: relative;
+  text-align: center;
+}
+
+/* Línea divisoria vertical entre privilegios */
+.privilege-item:not(:last-child)::after {
+  background: linear-gradient(to bottom, transparent, rgba(200, 169, 106, 0.4), transparent);
+  content: "";
+  height: 65%;
+  position: absolute;
+  right: -16px;
+  top: 18%;
+  width: 1px;
+}
+
+/* Medallón circular en relieve con reflejos dorados */
+.privilege-item__medallion {
+  align-items: center;
+  background: radial-gradient(circle, #FFFFFF 50%, #FAF5EC 100%);
+  border: 1.5px solid rgba(200, 169, 106, 0.6);
+  border-radius: 50%;
+  box-shadow:
+    0 8px 20px rgba(43, 26, 29, 0.06),
+    inset 0 0 0 2px rgba(255, 255, 255, 0.9);
+  display: flex;
+  height: 64px;
+  justify-content: center;
+  margin: 0 auto 12px;
+  transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+  width: 64px;
+}
+
+.privilege-item:hover .privilege-item__medallion {
+  border-color: var(--color-primary, #5B1F2E);
+  box-shadow:
+    0 12px 28px rgba(91, 31, 46, 0.15),
+    0 0 10px rgba(200, 169, 106, 0.3);
+  transform: scale(1.08) rotate(3deg);
+}
+
+.privilege-svg {
+  height: 34px;
+  width: 34px;
+}
+
+.privilege-item__eyebrow {
+  color: var(--color-aged-gold, #C8A96A);
+  font-family: var(--font-body, "Lato", sans-serif);
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.privilege-item__title {
+  color: var(--color-primary, #5B1F2E);
+  font-family: var(--font-heading, "Cinzel", Georgia, serif);
+  font-size: 1.05rem;
+  font-weight: 600;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.privilege-item__desc {
+  color: var(--color-text-muted, #6F6257);
+  font-family: var(--font-body, "Lato", sans-serif);
+  font-size: 0.84rem;
+  font-weight: 300;
+  line-height: 1.58;
+  margin: 0;
+}
+
+/* ==========================================================================
+   7. PIE DE PÁGINA MONUMENTAL (Site Footer en Burdeos Real)
+   ========================================================================== */
+.site-footer {
+  /* Fondo Burdeos Real en gradiente de profundidad */
+  background: radial-gradient(ellipse at 50% 0%, #5E1D2D 0%, #38111B 55%, #1F070D 100%);
+  border-top: 1px solid rgba(200, 169, 106, 0.4);
+  color: #FFF9EF;
+  padding: 0 0 36px;
+  position: relative;
+}
+
+/* Friso superior ornamental con escudo */
+.footer-crest-banner {
+  align-items: center;
+  border-bottom: 1px solid rgba(200, 169, 106, 0.2);
+  display: flex;
+  gap: 24px;
+  justify-content: center;
+  margin-bottom: 64px;
+  padding: 22px 20px;
+}
+
+.footer-crest-line {
+  background: linear-gradient(90deg, transparent, rgba(200, 169, 106, 0.5), transparent);
+  flex: 1;
+  height: 1px;
+  max-width: 280px;
+}
+
+.footer-crest-emblem {
+  color: var(--color-aged-gold, #C8A96A);
+  font-family: var(--font-heading, "Cinzel", Georgia, serif);
+  font-size: 0.76rem;
+  font-weight: 600;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+}
+
+.site-footer .footer-inner {
+  margin: 0 auto;
+  max-width: 1600px;
+  width: 90vw;
+}
+
+/* Rejilla de contenido del footer */
+.footer-top {
+  display: grid;
+  gap: 48px;
+  grid-template-columns: 1.45fr 1fr 1.15fr 1.15fr;
+  margin-bottom: 64px;
+}
+
+/* Columna 1: Marca e Identidad */
+.footer-brand {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.footer-brand__header {
+  align-items: center;
+  display: flex;
+  gap: 16px;
+}
+
+.footer-logo {
+  filter: drop-shadow(0 4px 10px rgba(200, 169, 106, 0.25));
+  height: auto;
+  width: 60px;
+}
+
+.footer-brand-name {
+  color: #FFFFFF;
+  font-family: var(--font-heading, "Cinzel", Georgia, serif);
+  font-size: 1.2rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  margin: 0 0 4px;
+}
+
+.footer-brand-vintage {
+  color: var(--color-aged-gold, #C8A96A);
+  display: block;
+  font-family: var(--font-body, "Lato", sans-serif);
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+}
+
+.footer-brand-copy {
+  color: rgba(255, 249, 239, 0.8);
+  font-family: var(--font-body, "Lato", sans-serif);
+  font-size: 0.88rem;
+  font-weight: 300;
+  line-height: 1.68;
+  margin: 0;
+  max-width: 360px;
+}
+
+.footer-brand-seal {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.seal-pill {
+  background: rgba(200, 169, 106, 0.1);
+  border: 1px solid rgba(200, 169, 106, 0.35);
+  border-radius: 12px;
+  color: #FFF9EF;
+  font-family: var(--font-body, "Lato", sans-serif);
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  padding: 3px 10px;
+}
+
+/* Títulos de columnas */
+.footer-col-title {
+  border-bottom: 1px solid rgba(200, 169, 106, 0.25);
+  color: var(--color-aged-gold, #C8A96A);
+  font-family: var(--font-heading, "Cinzel", Georgia, serif);
+  font-size: 0.84rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  margin: 0 0 20px;
+  padding-bottom: 8px;
+  text-transform: uppercase;
+}
+
+/* Columna 2: Enlaces de navegación */
+.footer-links {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.footer-links a {
+  align-items: center;
+  color: rgba(255, 249, 239, 0.82);
+  display: inline-flex;
+  font-family: var(--font-body, "Lato", sans-serif);
+  font-size: 0.88rem;
+  gap: 8px;
+  text-decoration: none;
+  transition: all 0.24s ease;
+}
+
+.link-arrow {
+  color: var(--color-aged-gold, #C8A96A);
+  font-size: 1rem;
+  line-height: 1;
+  transition: transform 0.24s ease;
+}
+
+.footer-links a:hover {
+  color: var(--color-aged-gold, #C8A96A);
+  transform: translateX(4px);
+}
+
+.footer-links a:hover .link-arrow {
+  transform: translateX(3px);
+}
+
+/* Columna 3: Información de contacto */
+.footer-contact-info {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.contact-entry {
+  display: flex;
+  flex-direction: column;
+  font-family: var(--font-body, "Lato", sans-serif);
+  font-size: 0.86rem;
+  gap: 3px;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.contact-label {
+  color: var(--color-aged-gold, #C8A96A);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.footer-contact-info a {
+  color: rgba(255, 249, 239, 0.85);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.footer-contact-info a:hover {
+  color: var(--color-aged-gold, #C8A96A);
+}
+
+/* Columna 4: Lista de herencia patrimonial */
+.footer-heritage-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.footer-heritage-list li {
+  display: flex;
+  flex-direction: column;
+  font-family: var(--font-body, "Lato", sans-serif);
+  font-size: 0.84rem;
+  gap: 2px;
+  line-height: 1.45;
+}
+
+.footer-heritage-list strong {
+  color: #FFF9EF;
+  font-family: var(--font-heading, "Cinzel", Georgia, serif);
+  font-size: 0.86rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+.footer-heritage-list span {
+  color: rgba(255, 249, 239, 0.7);
+  font-size: 0.8rem;
+}
+
+/* Línea divisoria y pie legal inferior */
+.footer-bottom {
+  align-items: center;
+  border-top: 1px solid rgba(200, 169, 106, 0.25);
+  color: rgba(255, 249, 239, 0.65);
+  display: flex;
+  font-family: var(--font-body, "Lato", sans-serif);
+  font-size: 0.74rem;
+  justify-content: space-between;
+  letter-spacing: 0.12em;
+  padding-top: 28px;
+  text-transform: uppercase;
+}
+
+.footer-safe-badge {
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 4px;
+  font-size: 0.64rem;
+  letter-spacing: 0.12em;
+  padding: 3px 8px;
+}
+
+/* --------------------------------------------------------------------------
+   8. ADAPTABILIDAD RESPONSIVE (Tablets y Dispositivos Móviles)
+   -------------------------------------------------------------------------- */
+@media (max-width: 1100px) {
+  .sanctuarium-grid {
+    gap: 48px;
+    grid-template-columns: 1fr;
+  }
+
+  .sanctuarium-privileges {
+    gap: 28px;
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .privilege-item:not(:last-child)::after {
+    display: none;
+  }
+
+  .footer-top {
+    gap: 42px;
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 720px) {
+  .sanctuarium-section {
+    padding: 80px 0 0;
+  }
+
+  .experience-card {
+    padding: 24px 20px;
+  }
+
+  .experience-card__numeral {
+    font-size: 1.8rem;
+    right: 18px;
+    top: 16px;
+  }
+
+  .concierge-card {
+    padding: 36px 20px 28px;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .sanctuarium-privileges {
+    gap: 28px;
+    grid-template-columns: 1fr;
+    padding: 36px 18px;
+  }
+
+  .footer-crest-banner {
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 40px;
+    text-align: center;
+  }
+
+  .footer-top {
+    gap: 36px;
+    grid-template-columns: 1fr;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    gap: 12px;
+    text-align: center;
+  }
+}

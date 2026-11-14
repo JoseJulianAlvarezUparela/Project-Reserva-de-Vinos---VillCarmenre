@@ -1,0 +1,488 @@
+/* ==========================================================================
+   TIPOGRAFÍAS Y FUENTES (Google Fonts)
+   - Cormorant Garamond: Tipografía serif tradicional y lírica para los títulos de los vinos.
+   - Lato: Tipografía sans-serif ligera y limpia para cuerpo y fichas técnicas.
+   ========================================================================== */
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Lato:wght@300;400;700&display=swap");
+
+/* ==========================================================================
+   VARIABLES DE DISEÑO DEL CATÁLOGO (:root)
+   ========================================================================== */
+:root {
+  /* Paleta cromática corporativa */
+  --catalogo-color-bordeaux: #5B1F2E;             /* Burdeos / Vino tinto noble */
+  --catalogo-color-gold: #C8A96A;                 /* Dorado envejecido patrimonial */
+  --catalogo-color-gold-light: rgba(200, 169, 106, 0.2); /* Dorado suave para fondos y filetes */
+  --catalogo-color-cream-bg: #F7F2E9;             /* Fondo crema general de la sección */
+  --catalogo-color-card-bg: #FCF9F3;              /* Fondo crema cálido para las tarjetas */
+  --catalogo-color-card-destacada: #FFFFFF;       /* Fondo más luminoso para la card destacada */
+  --catalogo-color-text: #2B1A1D;                 /* Texto principal profundo */
+  --catalogo-color-text-muted: #6F6257;           /* Texto secundario y descriptivo */
+  --catalogo-color-border-card: rgba(111, 98, 87, 0.18); /* Borde gris claro para tarjetas estándar */
+
+  /* Sombras */
+  --catalogo-shadow-card: 0 10px 26px rgba(43, 26, 29, 0.05);
+  --catalogo-shadow-hover: 0 18px 38px rgba(43, 26, 29, 0.09);
+  --catalogo-shadow-destacada: 0 16px 36px rgba(91, 31, 46, 0.12), 0 4px 14px rgba(43, 26, 29, 0.06);
+  --catalogo-shadow-destacada-hover: 0 22px 44px rgba(91, 31, 46, 0.17), 0 6px 18px rgba(43, 26, 29, 0.08);
+
+  /* Tipografías */
+  --catalogo-font-title: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+  --catalogo-font-body: "Lato", Arial, sans-serif;
+
+  /* Espaciados y estructura */
+  --catalogo-max-width: 1180px;
+  --catalogo-gap: 32px;
+  --catalogo-radius: 16px;
+  --catalogo-transition: 280ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+/* ==========================================================================
+   SECCIÓN DEL CATÁLOGO (Contenedor general)
+   ========================================================================== */
+.catalogo {
+  background-color: var(--catalogo-color-cream-bg);
+  padding: 100px 20px;
+  position: relative;
+  width: 100%;
+}
+
+.catalogo__container {
+  margin: 0 auto;
+  max-width: var(--catalogo-max-width);
+}
+
+/* Encabezado editorial de la sección */
+.catalogo__header {
+  margin-bottom: 56px;
+  text-align: center;
+}
+
+.catalogo__eyebrow {
+  color: var(--catalogo-color-gold);
+  display: block;
+  font-family: var(--catalogo-font-body);
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  margin-bottom: 12px;
+  text-transform: uppercase;
+}
+
+.catalogo__title {
+  color: var(--catalogo-color-bordeaux);
+  font-family: var(--catalogo-font-title);
+  font-size: clamp(2.4rem, 5vw, 4rem);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  line-height: 1.05;
+  margin: 0 0 16px;
+}
+
+.catalogo__subtitle {
+  color: var(--catalogo-color-text-muted);
+  font-family: var(--catalogo-font-body);
+  font-size: 1.05rem;
+  font-weight: 300;
+  line-height: 1.6;
+  margin: 0 auto;
+  max-width: 620px;
+}
+
+/* ==========================================================================
+   GRID DE 6 TARJETAS (Responsive 3 col -> 2 col -> 1 col)
+   ========================================================================== */
+.catalogo__grid {
+  display: grid;
+  /* repeat(auto-fit, minmax(260px, 1fr)) permite que se adapte sola */
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: var(--catalogo-gap);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* 3 columnas fijas en pantallas grandes */
+@media (min-width: 992px) {
+  .catalogo__grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* 2 columnas en tablets */
+@media (min-width: 640px) and (max-width: 991px) {
+  .catalogo__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* 1 columna en teléfonos móviles */
+@media (max-width: 639px) {
+  .catalogo__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ==========================================================================
+   ANATOMÍA DE LA TARJETA (.card)
+   - Contenedor vertical centrado
+   - Fondo crema, esquinas redondeadas y borde fino
+   - Alineación uniforme al fondo con flexbox vertical
+   ========================================================================== */
+.card {
+  align-items: center;
+  background-color: var(--catalogo-color-card-bg);
+  border: 1px solid var(--catalogo-color-border-card);
+  border-radius: var(--catalogo-radius);
+  box-shadow: var(--catalogo-shadow-card);
+  display: flex;
+  flex-direction: column;
+  padding: 34px 26px 28px;
+  position: relative;
+  text-align: center;
+  transition: transform var(--catalogo-transition), box-shadow var(--catalogo-transition), border-color var(--catalogo-transition);
+}
+
+/* Efecto hover: elevación sutil */
+.card:hover {
+  border-color: rgba(200, 169, 106, 0.45);
+  box-shadow: var(--catalogo-shadow-hover);
+  transform: translateY(-6px);
+}
+
+/* ==========================================================================
+   TARJETA DESTACADA (.card--destacada)
+   Reserva de Familia: borde burdeos más marcado y sombra suave
+   ========================================================================== */
+.card--destacada {
+  background-color: var(--catalogo-color-card-destacada);
+  border: 1.5px solid var(--catalogo-color-bordeaux);
+  box-shadow: var(--catalogo-shadow-destacada);
+}
+
+.card--destacada:hover {
+  border-color: var(--catalogo-color-bordeaux);
+  box-shadow: var(--catalogo-shadow-destacada-hover);
+  transform: translateY(-8px);
+}
+
+/* Etiqueta flotante decorativa en la tarjeta destacada */
+.card__badge {
+  background: var(--catalogo-color-bordeaux);
+  border-radius: 20px;
+  color: #FFFFFF;
+  font-family: var(--catalogo-font-body);
+  font-size: 0.64rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  padding: 4px 12px;
+  position: absolute;
+  top: -12px;
+  text-transform: uppercase;
+}
+
+/* ==========================================================================
+   BLOQUE 1: BOTÓN FAVORITO (Corazón lineal en esquina superior derecha)
+   ========================================================================== */
+.card__favorite {
+  align-items: center;
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(200, 169, 106, 0.35);
+  border-radius: 50%;
+  color: var(--catalogo-color-text-muted);
+  cursor: pointer;
+  display: flex;
+  height: 38px;
+  justify-content: center;
+  padding: 0;
+  position: absolute;
+  right: 18px;
+  top: 18px;
+  transition: all var(--catalogo-transition);
+  width: 38px;
+  z-index: 2;
+}
+
+.card__favorite svg {
+  display: block;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  fill: transparent;
+  transition: transform var(--catalogo-transition), fill var(--catalogo-transition), stroke var(--catalogo-transition);
+}
+
+.card__favorite:hover {
+  background: #FFFFFF;
+  border-color: var(--catalogo-color-bordeaux);
+  color: var(--catalogo-color-bordeaux);
+  transform: scale(1.1);
+}
+
+/* Estado activo cuando el usuario marca el corazón */
+.card__favorite[aria-pressed="true"],
+.card__favorite.is-favorite {
+  background: #FFFFFF;
+  border-color: var(--catalogo-color-bordeaux);
+  color: var(--catalogo-color-bordeaux);
+}
+
+.card__favorite[aria-pressed="true"] svg,
+.card__favorite.is-favorite svg {
+  animation: heartPulse 0.35s ease-in-out;
+  fill: var(--catalogo-color-bordeaux);
+}
+
+@keyframes heartPulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.3); }
+  100% { transform: scale(1); }
+}
+
+/* ==========================================================================
+   BLOQUE 2: FOTOGRAFÍA DE LA BOTELLA
+   Botella centrada ocupando el alto de la zona superior con object-fit: contain
+   ========================================================================== */
+.card__media {
+  align-items: center;
+  display: flex;
+  height: 230px;
+  justify-content: center;
+  margin-bottom: 20px;
+  padding: 6px 0;
+  position: relative;
+  width: 100%;
+}
+
+.card__image {
+  filter: drop-shadow(0 12px 18px rgba(43, 26, 29, 0.12));
+  height: 100%;
+  max-width: 100%;
+  object-fit: contain;
+  transition: transform var(--catalogo-transition);
+  width: auto;
+}
+
+.card:hover .card__image {
+  transform: scale(1.05);
+}
+
+/* ==========================================================================
+   BLOQUE 3: NOMBRE DEL VINO (En dos niveles: tipo menor y variedad mayor)
+   ========================================================================== */
+.card__title {
+  align-items: center;
+  color: var(--catalogo-color-bordeaux);
+  display: flex;
+  flex-direction: column;
+  font-family: var(--catalogo-font-title);
+  gap: 3px;
+  line-height: 1.1;
+  margin: 0;
+}
+
+.card__wine-type {
+  color: var(--catalogo-color-bordeaux);
+  font-family: var(--catalogo-font-body);
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  opacity: 0.9;
+  text-transform: uppercase;
+}
+
+.card__wine-variety {
+  color: var(--catalogo-color-bordeaux);
+  font-family: var(--catalogo-font-title);
+  font-size: 1.65rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+/* ==========================================================================
+   BLOQUE 4: VARIEDAD / DENOMINACIÓN EN DORADO
+   ========================================================================== */
+.card__origin {
+  color: var(--catalogo-color-gold);
+  font-family: var(--catalogo-font-body);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  margin: 8px 0 0;
+  text-transform: uppercase;
+}
+
+/* ==========================================================================
+   BLOQUE 5: DESCRIPCIÓN BREVE (2 a 3 líneas sans ligero)
+   ========================================================================== */
+.card__description {
+  color: var(--catalogo-color-text-muted);
+  font-family: var(--catalogo-font-body);
+  font-size: 0.88rem;
+  font-weight: 300;
+  line-height: 1.55;
+  margin: 14px 0 0;
+  max-width: 270px;
+}
+
+/* ==========================================================================
+   BLOQUE 6: CARACTERÍSTICA DESTACADA (Icono lineal + texto con etiqueta y valor)
+   ========================================================================== */
+.card__feature {
+  align-items: center;
+  background: rgba(220, 199, 166, 0.22);
+  border: 1px dashed rgba(200, 169, 106, 0.45);
+  border-radius: 8px;
+  display: flex;
+  gap: 12px;
+  margin: 20px 0 0;
+  padding: 10px 14px;
+  text-align: left;
+  width: 100%;
+}
+
+.card__feature-icon {
+  align-items: center;
+  color: var(--catalogo-color-gold);
+  display: flex;
+  flex-shrink: 0;
+  justify-content: center;
+}
+
+.card__feature-icon svg {
+  display: block;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  fill: none;
+}
+
+.card__feature-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.card__feature-label {
+  color: var(--catalogo-color-gold);
+  font-family: var(--catalogo-font-body);
+  font-size: 0.64rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.card__feature-value {
+  color: var(--catalogo-color-text);
+  font-family: var(--catalogo-font-body);
+  font-size: 0.82rem;
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+/* ==========================================================================
+   BLOQUE 7: MARIDAJE SUGERIDO (Empujado al fondo con margin-top: auto)
+   ========================================================================== */
+.card__pairing {
+  border-top: 1px solid rgba(200, 169, 106, 0.28);
+  margin-top: auto; /* Garantiza que todas las cards queden alineadas al fondo */
+  padding-top: 20px;
+  width: 100%;
+}
+
+.card__pairing-title {
+  color: var(--catalogo-color-gold);
+  display: block;
+  font-family: var(--catalogo-font-title);
+  font-size: 1.05rem;
+  font-style: italic;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  margin-bottom: 12px;
+}
+
+.card__pairing-icons {
+  align-items: center;
+  color: var(--catalogo-color-gold);
+  display: flex;
+  gap: 22px;
+  justify-content: center;
+}
+
+.card__pairing-item {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  position: relative;
+  transition: transform var(--catalogo-transition), color var(--catalogo-transition);
+}
+
+.card__pairing-item svg {
+  display: block;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  fill: none;
+}
+
+.card__pairing-item:hover {
+  color: var(--catalogo-color-bordeaux);
+  transform: translateY(-3px);
+}
+
+/* ==========================================================================
+   BLOQUE 8: ACCIÓN / ENLACE "CONOCER MÁS →" (Al pie de la tarjeta)
+   ========================================================================== */
+.card__action {
+  align-items: center;
+  color: var(--catalogo-color-bordeaux);
+  display: inline-flex;
+  font-family: var(--catalogo-font-body);
+  font-size: 0.78rem;
+  font-weight: 700;
+  gap: 8px;
+  letter-spacing: 0.16em;
+  margin-top: 22px;
+  padding: 4px 0;
+  position: relative;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: color var(--catalogo-transition);
+}
+
+.card__action-arrow {
+  display: inline-block;
+  font-size: 1rem;
+  line-height: 1;
+  transition: transform var(--catalogo-transition);
+}
+
+/* Desplazamiento de la flecha en hover */
+.card:hover .card__action-arrow,
+.card__action:hover .card__action-arrow {
+  transform: translateX(6px);
+}
+
+/* Subrayado elegante animado al hover */
+.card__action::after {
+  background: currentColor;
+  bottom: 0;
+  content: "";
+  height: 1px;
+  left: 0;
+  position: absolute;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform var(--catalogo-transition);
+  width: 100%;
+}
+
+.card:hover .card__action::after,
+.card__action:hover .card__action::after {
+  transform: scaleX(1);
+}
+
+/* Foco accesible para navegación por teclado */
+.card__favorite:focus-visible,
+.card__action:focus-visible {
+  outline: 2px solid var(--catalogo-color-bordeaux);
+  outline-offset: 4px;
+}
